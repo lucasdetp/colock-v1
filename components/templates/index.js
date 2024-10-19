@@ -1,3 +1,5 @@
 import RegisterTemplate from './RegisterTemplate';
+import LoginTemplate from './LoginTemplate';
+import AddPictureTemplate from './AddPictureTemplate';
 
-export { RegisterTemplate };
+export { RegisterTemplate, LoginTemplate, AddPictureTemplate };
