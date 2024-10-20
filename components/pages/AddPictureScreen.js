@@ -9,13 +9,18 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useRoute } from "@react-navigation/native"; 
 import { useDispatch } from "react-redux";
 import { SET_USER } from "../../context/actions/userActions";
+import {Text} from "../atoms"
 
 const AddPictureScreen = ({ navigation }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [bio, setBio] = useState("");
   const route = useRoute();
-  const { userId } = route.params;
+  const { userId } = route.params || {};
   const dispatch = useDispatch();
+
+  if (!userId) {
+    return <Text.Base> </Text.Base>; // TOOD
+  }
 
   const handleAvatar = async () => {
     try {
@@ -59,7 +64,7 @@ const AddPictureScreen = ({ navigation }) => {
       };
       dispatch(SET_USER(updatedUser));
   
-      navigation.navigate("HomeScreen");
+      navigation.navigate("Main");
     } catch (error) {
       console.error("Error saving profile:", error);
     }

@@ -1,4 +1,9 @@
-const userAuthReducer = (state = null, action) => {
+// context/reducer/userAuthReducer.js
+const initialState = {
+  user: null, 
+};
+
+const userAuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_USER":
       return {

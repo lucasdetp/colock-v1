@@ -26,7 +26,7 @@ const LoginScreen = () => {
 
       if (docSnap.exists()) {
         dispatch(SET_USER(docSnap.data()));
-        navigation.navigate('HomeScreen'); 
+        navigation.navigate('Main'); 
       }
     } catch (err) {
       console.error("Erreur : ", err.message);

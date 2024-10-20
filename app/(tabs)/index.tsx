@@ -2,7 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';  
 import { View } from 'react-native';
 import { RegisterScreen } from '@/components/pages';
-import { NavigationContainer } from '@react-navigation/native';
 import Store from '@/context/store';  
 
 export default function HomeScreen() {

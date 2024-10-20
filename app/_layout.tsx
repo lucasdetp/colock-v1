@@ -5,8 +5,10 @@ import Store from '@/context/store';
 import { getAuth } from 'firebase/auth';
 import AppNavigator from '../app/navigator/AppNavigator'; // Assure-toi que le chemin est correct
 
+// app/tabs/_layout.js
 const Layout = () => {
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isAddPicture, setIsAddPicture] = useState(false);
   const auth = getAuth();
 
   useEffect(() => {
@@ -19,9 +21,10 @@ const Layout = () => {
 
   return (
     <Provider store={Store}>
-      <AppNavigator />
+      <AppNavigator isRegistered={isRegistered} isAddPicture={isAddPicture} />
     </Provider>
   );
 };
+
 
 export default Layout;

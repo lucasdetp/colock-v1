@@ -1,16 +1,25 @@
 // app/navigator/AppNavigator.js
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {LoginScreen, RegisterScreen, AddPictureScreen} from '@/components/pages'; 
+import { LoginScreen, RegisterScreen, AddPictureScreen } from '@/components/pages'; 
+import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigator = () => {
+const AppNavigator = ({ isRegistered, isAddPicture }) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="AddPictureScreen" component={AddPictureScreen} />
+      {isRegistered ? (
+        <>
+          <Stack.Screen name="AddPictureScreen" component={AddPictureScreen} />
+          <Stack.Screen name="Main" component={TabNavigator} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

@@ -1,3 +1,4 @@
 import { FormField } from './FormField';
+import MessageCard from './MessageCard';
 
-export { FormField };
+export { FormField, MessageCard };
