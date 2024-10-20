@@ -1,3 +1,4 @@
 import Base from './Base';
+import Swipe from './Swipe';
 
-export { Base };
+export { Base, Swipe };

@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { firestoreDB } from '../../config/firebase.config';
 import { getAuth } from 'firebase/auth';
 import { HomeTemplate } from '../templates';
-import { Text, View } from 'react-native'; // Assurez-vous d'importer Text et View
+import { Text, View } from 'react-native';
 
 const HomeScreen = () => {
   const user = useSelector((state) => state.user.user);
@@ -23,15 +23,22 @@ const HomeScreen = () => {
     ); 
   }
 
-  useLayoutEffect(() => {
-    const unsubscribe = onSnapshot(query(collection(firestoreDB, "chats"), orderBy("_id", "desc")), (querySnapShot) => {
-      const chatRooms = querySnapShot.docs.map((doc) => doc.data());
-      const filteredChats = chatRooms.filter(chat => chat.users.includes(auth.currentUser.uid) && chat.active);
-      setChats(filteredChats);
-      setIsLoading(false); // Mettez à jour le chargement uniquement lorsque les chats sont chargés
-    });
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(collection(firestoreDB, "chats"), orderBy("_id", "desc")), 
+      (querySnapShot) => {
+        const chatRooms = querySnapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // Ajout de l'ID du document
+        const filteredChats = chatRooms.filter(chat => chat.users.includes(auth.currentUser.uid) && chat.active);
+        setChats(filteredChats);
+        setIsLoading(false); // Mettez à jour le chargement uniquement lorsque les chats sont chargés
+      },
+      (error) => {
+        console.error("Error fetching chats: ", error);
+        setIsLoading(false); // Assurez-vous de mettre à jour l'état même en cas d'erreur
+      }
+    );
     
-    return unsubscribe;
+    return () => unsubscribe();
   }, [auth.currentUser.uid]); // Ajoutez auth.currentUser.uid comme dépendance
 
   const handleMessagePress = (room) => {
@@ -39,7 +46,12 @@ const HomeScreen = () => {
   };
 
   return (
-    <HomeTemplate chats={chats} isLoading={isLoading} onPressMessage={handleMessagePress} />
+    <HomeTemplate 
+      chats={chats} 
+      isLoading={isLoading} 
+      onPressMessage={handleMessagePress} 
+      auth={auth} 
+    />
   );
 };
 
