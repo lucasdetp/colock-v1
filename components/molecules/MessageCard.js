@@ -5,7 +5,6 @@ import {Text, Image} from '../atoms';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const MessageCard = ({ room, auth, onPress }) => {
-  console.log(auth);
   const otherUserId = room.users.find(uid => uid !== auth.currentUser.uid);
   const otherUserFullName = room.userFullName[room.users.indexOf(otherUserId)];
   const otherUserProfilePic = room.otherUserProfilePic || "N/A"; 

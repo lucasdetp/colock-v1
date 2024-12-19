@@ -14,7 +14,6 @@ const HomeScreen = () => {
   const auth = getAuth();
   const navigation = useNavigation();
 
-  // Affichez un écran de chargement si l'utilisateur n'est pas encore défini
   if (!user) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -27,22 +26,22 @@ const HomeScreen = () => {
     const unsubscribe = onSnapshot(
       query(collection(firestoreDB, "chats"), orderBy("_id", "desc")), 
       (querySnapShot) => {
-        const chatRooms = querySnapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() })); // Ajout de l'ID du document
+        const chatRooms = querySnapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() })); 
         const filteredChats = chatRooms.filter(chat => chat.users.includes(auth.currentUser.uid) && chat.active);
         setChats(filteredChats);
-        setIsLoading(false); // Mettez à jour le chargement uniquement lorsque les chats sont chargés
+        setIsLoading(false); 
       },
       (error) => {
         console.error("Error fetching chats: ", error);
-        setIsLoading(false); // Assurez-vous de mettre à jour l'état même en cas d'erreur
+        setIsLoading(false);
       }
     );
     
     return () => unsubscribe();
-  }, [auth.currentUser.uid]); // Ajoutez auth.currentUser.uid comme dépendance
+  }, [auth.currentUser.uid]);
 
   const handleMessagePress = (room) => {
-    navigation.navigate("ChatScreen", { room });
+    navigation.navigate("Chat", { room });
   };
 
   return (

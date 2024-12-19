@@ -1,7 +1,7 @@
 // app/navigator/AppNavigator.js
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, RegisterScreen, AddPictureScreen } from '@/components/pages'; 
+import { LoginScreen, RegisterScreen, AddPictureScreen, ChatScreen } from '@/components/pages'; 
 import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
@@ -13,6 +13,7 @@ const AppNavigator = ({ isRegistered, isAddPicture }) => {
         <>
           <Stack.Screen name="AddPictureScreen" component={AddPictureScreen} />
           <Stack.Screen name="Main" component={TabNavigator} />
+          <Stack.Screen name="Chat" component={ChatScreen} />
         </>
       ) : (
         <>

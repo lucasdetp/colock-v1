@@ -9,6 +9,7 @@ const BaseTextInput = ({ placeholder, secureTextEntry, onChangeText }) => {
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
       onChangeText={onChangeText}
+      autoCapitalize="none"
     />
   );
 };
