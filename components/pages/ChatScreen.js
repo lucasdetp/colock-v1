@@ -14,7 +14,6 @@ const ChatScreen = ({ route }) => {
   const [messages, setMessages] = useState([]);
   const [otherUserProfilePic, setOtherUserProfilePic] = useState(null);
   const user = useSelector((state) => state.user.user);
-  const scrollViewRef = useRef();
   const auth = getAuth();
 
   const getOtherUserProfilePic = async () => {

@@ -1,4 +1,5 @@
 import Base from './Base';
 import Swipe from './Swipe';
+import ImageAccount from './ImageAccount';
 
-export { Base, Swipe };
+export { Base, Swipe, ImageAccount };

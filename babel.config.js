@@ -1,6 +1,6 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],  // Conservez seulement ce preset
+  presets: ['babel-preset-expo'], // Utilisez babel-preset-expo pour les projets Expo
   plugins: [
-    'react-native-reanimated/plugin',  // Gardez ce plugin si vous utilisez Reanimated
+    'react-native-reanimated/plugin', // Gardez ce plugin si vous utilisez Reanimated
   ],
 };
