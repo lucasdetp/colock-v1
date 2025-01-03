@@ -5,14 +5,18 @@ import { fleche } from '../../../assets';
 const InfoBox = ({ svgSource, text, percentage, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <SvgXml xml={svgSource} style={styles.image} />
+      {svgSource && <SvgXml xml={svgSource} style={styles.image} />}
+
       <View style={styles.textContainer}>
         <Text style={styles.text}>{text}</Text>
       </View>
-      <View style={styles.percentageArrowContainer}>
-        <Text style={styles.percentage}>{percentage}%</Text>
-        <Image source={fleche} style={styles.logo} resizeMode="contain" />
-      </View>
+
+      {(percentage !== undefined) && (
+        <View style={styles.percentageArrowContainer}>
+          <Text style={styles.percentage}>{percentage}%</Text>
+        </View>
+      )}
+      <Image source={fleche} style={styles.logo} resizeMode="contain" />
     </TouchableOpacity>
   );
 };

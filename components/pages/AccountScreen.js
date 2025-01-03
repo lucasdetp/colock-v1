@@ -53,7 +53,7 @@ const AccountScreen = () => {
                 `,
       text: 'À propos de moi',
       percentage: 60,
-      onPress: () => console.log('Rediriger vers la section à propos de moi'),
+      onPress: () => navigation.navigate('AboutMeScreen2'),
     },
     {
       svgSource: `<svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">

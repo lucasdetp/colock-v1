@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
+  Image,
   TouchableOpacity,
   TextInput,
-  Image,
 } from 'react-native';
 import { flecheBas, flecheHaut } from '../../assets';
 import { SvgXml } from 'react-native-svg';
+import { Container, Text } from '../atoms';
 
 const AboutMe = ({ svgSource, title, percentage }) => {
   const [showPersonalForm, setShowPersonalForm] = useState(false);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.headerContainer}>
+    <Container.BasicView style={styles.mainContainer}>
+      <Container.BasicView style={styles.headerContainer}>
         <SvgXml xml={svgSource} style={styles.image} />
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.percentageCircle}>
-          <Text style={styles.percentage}>{percentage}%</Text>
-        </View>
-      </View>
+        <Text.Base style={styles.title}>{title}</Text.Base>
+        <Container.BasicView style={styles.percentageCircle}>
+          <Text.Base style={styles.percentage}>{percentage}%</Text.Base>
+        </Container.BasicView>
+      </Container.BasicView>
 
       {/* Container pour les boutons et les formulaires */}
-      <View style={styles.buttonsContainer}>
+      <Container.BasicView style={styles.buttonsContainer}>
         <TouchableOpacity
           style={[
             styles.button,
@@ -33,9 +32,9 @@ const AboutMe = ({ svgSource, title, percentage }) => {
           ]}
           onPress={() => setShowPersonalForm(!showPersonalForm)}
         >
-          <Text style={styles.buttonText}>
+          <Text.Base style={styles.buttonText}>
             Nom, prénom, date de naissance...
-          </Text>
+          </Text.Base>
           <Image
             source={showPersonalForm ? flecheHaut : flecheBas}
             style={styles.arrow}
@@ -44,7 +43,7 @@ const AboutMe = ({ svgSource, title, percentage }) => {
 
         {/* Formulaire déroulant : Informations personnelles */}
         {showPersonalForm && (
-          <View style={styles.form}>
+          <Container.BasicView style={styles.form}>
             <TextInput placeholder="Prénom" style={styles.input} />
             <TextInput placeholder="Nom" style={styles.input} />
             <TextInput
@@ -53,11 +52,11 @@ const AboutMe = ({ svgSource, title, percentage }) => {
               keyboardType="numeric"
             />
             <TextInput placeholder="Adresse de facturation" style={styles.input} />
-          </View>
+          </Container.BasicView>
         )}
 
         {/* Espacement entre les boutons */}
-        <View style={styles.spacer} />
+        <Container.BasicView style={styles.spacer} />
 
         {/* Bouton pour les informations de paiement */}
         <TouchableOpacity
@@ -67,7 +66,7 @@ const AboutMe = ({ svgSource, title, percentage }) => {
           ]}
           onPress={() => setShowPaymentForm(!showPaymentForm)}
         >
-          <Text style={styles.buttonText}>Info de paiement</Text>
+          <Text.Base style={styles.buttonText}>Info de paiement</Text.Base>
           <Image
             source={showPaymentForm ? flecheHaut : flecheBas} 
             style={styles.arrow}
@@ -76,7 +75,7 @@ const AboutMe = ({ svgSource, title, percentage }) => {
 
         {/* Formulaire déroulant : Informations de paiement */}
         {showPaymentForm && (
-          <View style={styles.form}>
+          <Container.BasicView style={styles.form}>
             <TextInput placeholder="Nom sur la carte" style={styles.input} />
             <TextInput
               placeholder="Numéro de carte"
@@ -88,10 +87,10 @@ const AboutMe = ({ svgSource, title, percentage }) => {
               style={styles.input}
               keyboardType="numeric"
             />
-          </View>
+          </Container.BasicView>
         )}
-      </View>
-    </View>
+      </Container.BasicView>
+    </Container.BasicView>
   );
 };
 
