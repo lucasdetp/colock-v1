@@ -1,15 +1,18 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import {RegistrationForm} from '../organims';
+import { Text } from '../atoms';
 
 const RegisterTemplate = ({
   logo,
   name,
   setName,
+  setLastName,
   email,
   setEmail,
   password,
   setPassword,
+  setConfirmPassword,
   coloc,
   toggleSwitch,
   handleRegister,
@@ -17,20 +20,22 @@ const RegisterTemplate = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Image source={logo} style={styles.logo} resizeMode="contain" />
+       <Text.Base style={styles.title}>Inscription</Text.Base>
       <RegistrationForm
         name={name}
         setName={setName}
+        setLastName={setLastName}
         email={email}
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
+        setConfirmPassword={setConfirmPassword}
         coloc={coloc}
         toggleSwitch={toggleSwitch}
         handleRegister={handleRegister}
       />
       <TouchableOpacity onPress={navigateToLogin}>
-        <Text style={styles.linkText}>J'ai déjà un compte</Text>
+        <Text.Base style={styles.linkText}>Connexion</Text.Base>
       </TouchableOpacity>
     </View>
   );
@@ -43,6 +48,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    bottom: 10,
+  },
   logo: {
     width: 80,
     height: 80,
@@ -50,9 +60,9 @@ const styles = StyleSheet.create({
   },
   linkText: {
     marginTop: 20,
-    color: 'red',
-    textDecorationLine: 'underline',
-    fontSize: 16,
+    color: '#6D6D6D',
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
 

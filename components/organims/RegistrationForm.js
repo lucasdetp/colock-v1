@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Switch, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import FormField from '../molecules/FormField';
-import {Button} from '../atoms';
+import { Text} from '../atoms';
 
 const RegistrationForm = ({
   name,
   setName,
+  setLastName,
   email,
   setEmail,
   password,
   setPassword,
+  setConfirmPassword,
   coloc,
   toggleSwitch,
   handleRegister,
@@ -22,6 +24,11 @@ const RegistrationForm = ({
         onChangeText={setName}
       />
       <FormField
+        label="Nom"
+        placeholder="Nom"
+        onChangeText={setLastName}
+      />
+      <FormField
         label="Email"
         placeholder="Email"
         onChangeText={setEmail}
@@ -32,11 +39,17 @@ const RegistrationForm = ({
         secureTextEntry={true}
         onChangeText={setPassword}
       />
-      <View style={styles.switchContainer}>
-        <Switch value={coloc} onValueChange={toggleSwitch} />
-        <Text style={styles.switchText}>Je recherche un colocataire</Text>
-      </View>
-      <Button.Base title="S'inscrire" onPress={handleRegister} />
+      <FormField
+        label="Confirmation du mot de passe"
+        placeholder="Confirmation du mot de passe"
+        secureTextEntry={true}
+        onChangeText={setConfirmPassword}
+      />
+      
+      <TouchableOpacity onPress={handleRegister} style={styles.button}>
+        <Text.Base style={styles.buttonText}>Inscription</Text.Base>
+      </TouchableOpacity>
+      
     </View>
   );
 };
@@ -53,6 +66,21 @@ const styles = StyleSheet.create({
   switchText: {
     marginLeft: 10,
     fontSize: 16,
+  },
+  buttonText: {
+    color: '#3A3A3A',
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  button: {
+    width: '50%',
+    paddingVertical: 12,
+    borderRadius: 20,
+    backgroundColor: '#F8F9FA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 12,
+    alignSelf: 'center',
   },
 });
 

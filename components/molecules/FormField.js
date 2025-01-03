@@ -22,8 +22,9 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 5,
-    fontSize: 16,
-    color: '#333',
+    fontSize: 20,
+    fontWeight: '400',
+    color: '#3A3A3A',
   },
 });
 

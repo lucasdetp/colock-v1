@@ -1,14 +1,16 @@
 // components/organisms/LoginForm.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import BaseTextInput from '../atoms/TextInput/Base';
+import { Text } from '../atoms';
 
 const LoginForm = ({ email, setEmail, password, setPassword, handleLogin, alert, alertMessage }) => {
   return (
     <View style={styles.inputContainer}>
       {/* Alert */}
-      {alert && <Text style={styles.alertText}>{alertMessage}</Text>}
+      {alert && <Text.Base style={styles.alertText}>{alertMessage}</Text.Base>}
 
+      <Text.Base style={styles.name}>Email *</Text.Base>
       {/* Email Input */}
       <BaseTextInput
         placeholder="Email"
@@ -16,16 +18,21 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin, alert,
         secureTextEntry={false}
       />
 
+      <Text.Base style={styles.name}>Mot de passe *</Text.Base>
       {/* Password Input */}
       <BaseTextInput
         placeholder="Mot de passe"
         onChangeText={setPassword}
         secureTextEntry={true}
       />
+      <Text.Base style={styles.desc}>Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</Text.Base>
 
+      <TouchableOpacity onPress={handleLogin} style={styles.forgetPasswordButton}>
+        <Text.Base style={styles.buttonTextForget}>Mot de passe oublié</Text.Base>
+      </TouchableOpacity>
       {/* Login Button */}
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
-        <Text style={styles.buttonText}>Se connecter</Text>
+        <Text.Base style={styles.buttonText}>Connexion</Text.Base>
       </TouchableOpacity>
     </View>
   );
@@ -38,22 +45,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  desc: {
+    fontSize: 11,
+    color: '#3A3A3A',
+    alignSelf: 'flex-start',
+    marginBottom: 8,
+  },
+  forgetPasswordButton: {
+    marginTop: 35,
+  },
+  buttonTextForget: {
+    color: '#3A3A3A',
+    fontSize: 16,
+    fontWeight: '400',
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: 'black',
+    alignSelf: 'flex-start',
+    marginVertical: 8,
+  },
   alertText: {
     fontSize: 16,
     color: 'red',
   },
   button: {
-    width: '100%',
+    width: '50%',
     paddingVertical: 12,
-    borderRadius: 12,
-    backgroundColor: '#3498db',
+    borderRadius: 20,
+    backgroundColor: '#F8F9FA',
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 12,
+    alignSelf: 'center',
   },
   buttonText: {
-    color: 'white',
-    fontSize: 18,
+    color: '#3A3A3A',
+    fontSize: 20,
     fontWeight: '600',
   },
 });

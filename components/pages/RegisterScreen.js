@@ -1,7 +1,6 @@
-// components/pages/RegisterScreen.js
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
-import {RegisterTemplate} from '../templates';
+import { RegisterTemplate } from '../templates';
 import { Logo } from '../../assets/index'; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
@@ -13,19 +12,32 @@ import { useNavigation } from '@react-navigation/native';
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [coloc, setColoc] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const toggleSwitch = () => setColoc(prev => !prev);
 
+  const handlePasswordChange = (newPassword) => {
+    setPassword(newPassword);
+    setConfirmPassword(newPassword); 
+  };
+
   const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      console.error('Les mots de passe ne correspondent pas');
+      return;
+    }
+    
     try {
       const userCred = await createUserWithEmailAndPassword(firebaseAuth, email, password);
       const data = {
         _id: userCred.user.uid,
         fullName: name,
+        lastName: lastName,
         isColoc: coloc,
         email: email,
         uid: userCred.user.uid,
@@ -45,10 +57,12 @@ const RegisterScreen = () => {
           logo={Logo}
           name={name}
           setName={setName}
+          setLastName={setLastName}
           email={email}
           setEmail={setEmail}
           password={password}
-          setPassword={setPassword}
+          setPassword={handlePasswordChange}  
+          setConfirmPassword={setConfirmPassword} 
           coloc={coloc}
           toggleSwitch={toggleSwitch}
           handleRegister={handleRegister}
