@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import AccountScreenTemplate from '../templates/AccountScreenTemplate';
 
 const AccountScreen = () => {
   const user = useSelector((state) => state.user.user?.user || state.user.user || {});
+  const navigation = useNavigation();
 
   const boxImages = [
     {
@@ -33,6 +35,37 @@ const AccountScreen = () => {
       text3: "Mes boosts",
     },
   ];
+
+  const infoBoxData = [
+    {
+      svgSource: `<svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.91" d="M7.28315 7.47521C8.61176 6.95102 9.55644 5.64482 9.55644 4.11494C9.55644 2.12746 7.96177 0.508789 6 0.508789C4.03823 0.508789 2.44356 2.12746 2.44356 4.11494C2.44356 5.64482 3.38993 6.95102 4.71685 7.47521C2.05794 8.07282 0.0625 10.4786 0.0625 13.3506C0.0625 14.5407 1.01728 15.5088 2.19097 15.5088H9.80903C10.9827 15.5088 11.9375 14.5407 11.9375 13.3506C11.9375 10.4769 9.94206 8.07282 7.28315 7.47521Z" fill="#7790ED"/>
+                </svg>
+                `,
+      text: 'Mes informations personnelles',
+      percentage: 80,
+      onPress: () => navigation.navigate('AboutMeScreen'),
+    },
+    {
+      svgSource: `<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.91" d="M19.3732 5.08701C19.3732 6.25861 18.9248 7.43021 18.0224 8.32495L11.3537 14.9512C10.6064 15.6937 9.39222 15.6956 8.6449 14.9512L1.97434 8.32495C0.175221 6.53547 0.175221 3.63855 1.97434 1.8509C2.87297 0.954327 4.05393 0.508789 5.23304 0.508789C6.41215 0.508789 7.59311 0.954327 8.49174 1.8509L10.0012 3.34703L11.4257 1.93158C13.2322 0.136591 16.1901 0.0485834 18.0058 1.83257C18.9192 2.72914 19.375 3.90624 19.375 5.08884L19.3732 5.08701Z" fill="#7790ED"/>
+                </svg>
+                `,
+      text: 'À propos de moi',
+      percentage: 60,
+      onPress: () => console.log('Rediriger vers la section à propos de moi'),
+    },
+    {
+      svgSource: `<svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.91" d="M7.28315 7.47521C8.61176 6.95102 9.55644 5.64482 9.55644 4.11494C9.55644 2.12746 7.96177 0.508789 6 0.508789C4.03823 0.508789 2.44356 2.12746 2.44356 4.11494C2.44356 5.64482 3.38993 6.95102 4.71685 7.47521C2.05794 8.07282 0.0625 10.4786 0.0625 13.3506C0.0625 14.5407 1.01728 15.5088 2.19097 15.5088H9.80903C10.9827 15.5088 11.9375 14.5407 11.9375 13.3506C11.9375 10.4769 9.94206 8.07282 7.28315 7.47521Z" fill="#7790ED"/>
+                </svg>
+                `,
+      text: 'Tu cherches...',
+      percentage: 50,
+      onPress: () => console.log('Rediriger vers une autre section'),
+    },
+  ];
+  
 
   const largeBoxData = {
     imageSource: `
@@ -84,6 +117,7 @@ const AccountScreen = () => {
       additionalDetails={user.bio || "Aucun détail supplémentaire disponible"}
       boxImages={boxImages}
       largeBoxData={largeBoxData}
+      infoBoxData={infoBoxData}
     />
   );
 };

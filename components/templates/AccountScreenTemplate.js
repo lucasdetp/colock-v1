@@ -3,8 +3,9 @@ import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 import TextPlaceholder from '../atoms/Text/Base';
 import { AccountPictureName, ThreeSmallBoxes } from '../organims';
 import LargeBox from '../atoms/Container/LargeBox';
+import InfoBox from '../atoms/Container/InfoBox';
 
-const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxImages, largeBoxData, }) => {
+const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxImages, largeBoxData, infoBoxData, }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -32,6 +33,16 @@ const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxIma
             style={styles.boxStyle}
           />
         )}
+
+        {infoBoxData.map((item, index) => (
+          <InfoBox 
+            key={index}
+            svgSource={item.svgSource}
+            text={item.text}
+            percentage={item.percentage}
+            onPress={item.onPress}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
