@@ -1,17 +1,14 @@
 // components/SwipeScreen.js
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
+import { View, SafeAreaView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DeckSwiper from "react-native-deck-swiper";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { firestoreDB } from '../../config/firebase.config';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { LinearGradient } from 'expo-linear-gradient';
-import SvgNop from "../../assets/svg/nop";
-import SvgYes from "../../assets/svg/yes";
-import SvgLoc from "../../assets/svg/loc";
-import SvgCalandar from "../../assets/svg/calandar";
-import {Button} from '../atoms'; 
+import SvgPlus from "../../assets/svg/plus";
+import { Container, Text} from '../atoms';
+import { SwipeCard } from "../organims";
 
 const SwipeScreen = () => {
   const [cards, setCards] = useState([]);
@@ -19,6 +16,7 @@ const SwipeScreen = () => {
   const auth = getAuth();
   const [swipedAll, setSwipedAll] = useState(false);
   const swiperRef = useRef(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -53,26 +51,53 @@ const SwipeScreen = () => {
         try {
           const currentUserSwipeDocRef = doc(firestoreDB, "userSwipe", currentUser.id);
           const currentUserSwipeDocSnap = await getDoc(currentUserSwipeDocRef);
-          const currentUserSwipedUsers = currentUserSwipeDocSnap.data()?.swipedUsers || [];
+  
+          const currentUserSwipedUsers = currentUserSwipeDocSnap.exists()
+            ? currentUserSwipeDocSnap.data()?.swipedUsers || []
+            : [];
+          const currentUserDislikedUsers = currentUserSwipeDocSnap.exists()
+            ? currentUserSwipeDocSnap.data()?.dislikedUsers || []
+            : [];
+  
+          const excludedUsers = [...currentUserSwipedUsers, ...currentUserDislikedUsers];
+  
           const usersCollection = collection(firestoreDB, "users");
           const usersSnapshot = await getDocs(usersCollection);
-          const usersData = usersSnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
   
-          const filteredUsers = usersData.filter(user => {
-            return user.id !== currentUser.id && !currentUserSwipedUsers.includes(user.id);
-          });
+          if (!usersSnapshot.empty) {
+            const usersData = usersSnapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
   
-          setCards(filteredUsers);
+            const filteredUsers = usersData.filter(user => {
+              return user.id !== currentUser.id && !excludedUsers.includes(user.id);
+            });
+  
+            setCards(filteredUsers);
+  
+            if (filteredUsers.length === 0) {
+              setSwipedAll(true);
+            } else {
+              setSwipedAll(false);
+            }
+          } else {
+            console.warn("No users found in Firestore.");
+            setCards([]);
+            setSwipedAll(true);
+          }
         } catch (error) {
           console.error("Error fetching users:", error);
+          setCards([]);
+          setSwipedAll(false);
         }
       };
+  
       fetchUsers();
     }
   }, [currentUser]);
+  
+  
   
   const simulateSwipeLeft = () => {
     if (swiperRef.current) {
@@ -92,44 +117,64 @@ const SwipeScreen = () => {
     const name = userData?.fullName;
   
     return (
-      <TouchableOpacity style={{ flex: 1, backgroundColor: "white" }}>
-        <Image source={{ uri: profilePic }} style={{ width: "100%", height: "100%", position: "absolute" }} resizeMode="cover" />
-        <LinearGradient
-          colors={['rgba(217, 217, 217, 0.00)', 'rgba(153, 0, 255, 0.30)']}
-          start={[0.5, 0]}
-          end={[0.5, 1]}
-          style={{ flex: 1, position: "absolute", width: "100%", height: "100%" }}
-        />
-        <View style={{ position: "absolute", bottom: "45%", left: "5%", width: "90%", justifyContent: "center", alignItems: "center" }}>
-          <Text className="text-xl text-boldW" style={{ textShadowRadius: 5, textShadowColor: "rgba(0, 0, 0, 1)", textShadowOffset: { width: 1, height: -1 }, fontWeight: "bold", textTransform: "uppercase" }}>{name}</Text>
-        </View>
+      <TouchableOpacity style={{ flex: 1, backgroundColor: "white", borderRadius: 15, overflow: "hidden" }}>
+            <SwipeCard.NameSwipe name={name} />
+            <SwipeCard.ImageSwipe profilePic={profilePic} />
 
-        <View style={{ position: "absolute", bottom: "40%", left: "5%", width: "90%", backgroundColor: "white", padding: 10, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
-          <Text className="font-default" style={{ fontSize: 16, color: "black" }}>{bio}</Text>
-        </View>
+            <Container.BasicView style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 10, marginBottom: 20 }}>
+              <SwipeCard.SpecialSwipe caractere="Lyon et périphérie" />
+              <SwipeCard.SpecialSwipe caractere="Animaux" />
+              <SwipeCard.SpecialSwipe caractere="Fumeur" />
+            </Container.BasicView>
 
-        <View style={{ position: "absolute", bottom: "35%", left: "12%", width: "90%", padding: 10 }}>
-          <Text>
-            <SvgLoc />
-            Localisation
-          </Text>
-        </View>
-        
-        <View style={{ position: "absolute", bottom: "30%", left: "12%", width: "90%", padding: 10 }}>
-          <Text>
-            <SvgCalandar />
-            Date
-          </Text>
-        </View>
+            {/* Localisation et Date */}
+            <SwipeCard.DateSwipe date="12/12/2021" />
 
-        <View style={{ position: "absolute", bottom: "20%", flexDirection: "row", justifyContent: "space-around", width: "100%" }}>
-          <Button.Swipe onPress={simulateSwipeLeft}>
-            <SvgNop />
-          </Button.Swipe>
-          <Button.Swipe onPress={simulateSwipeRight}>
-            <SvgYes />
-          </Button.Swipe>
-        </View>
+          {/* Description */}
+          <SwipeCard.DescriptionSwipe bio={bio} />  
+  
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SwipePlusScreen', { 
+              name: name, 
+              profilePic: profilePic,
+              location: "Lyon et périphérie",
+              carac2: "Animaux",
+              carac3: "Fumeur",
+              date: "12/12/2021",
+              bio: bio,
+            })}
+            style={{ 
+              position: "absolute", 
+              bottom: 250, 
+              left: "50%", 
+              transform: [{ translateX: -100 }], 
+              width: 200, 
+              alignItems: "center",
+            }}
+          >
+            <View 
+              style={{
+                padding: 10,
+                backgroundColor: "white", 
+                borderRadius: 20, 
+                boxShadow: "0px 0px 6px 0px rgba(0, 0, 0, 0.10)", 
+                shadowColor: "rgba(0, 0, 0, 0.1)", 
+                shadowOffset: { width: 0, height: 2 }, 
+                shadowOpacity: 0.1, 
+                shadowRadius: 6, 
+                flexDirection: "row", 
+                alignItems: "center", 
+                justifyContent: "center",
+              }}
+            >
+              <SvgPlus />
+              <Text.Base style={{ marginLeft: 5 }}>Voir plus</Text.Base>
+            </View>
+          </TouchableOpacity>
+
+
+        {/* Boutons fixés en bas */}
+        <SwipeCard.ActionButtonSwipe simulateSwipeLeft={simulateSwipeLeft} simulateSwipeRight={simulateSwipeRight} />
       </TouchableOpacity>
     );
   };
@@ -169,7 +214,34 @@ const SwipeScreen = () => {
       console.error("Invalid userData object:", userData);
     }
   };
+
+
+  const dislikeUser = async (index, userData) => {
+    if (userData && userData.id) {
+      try {
+        // Référence à la collection userSwipe pour l'utilisateur actuel
+        const currentUserSwipeDocRef = doc(firestoreDB, "userSwipe", currentUser.id);
   
+        // Si le document n'existe pas encore, initialisez-le avec une liste vide
+        const currentUserSwipeDocSnap = await getDoc(currentUserSwipeDocRef);
+        if (!currentUserSwipeDocSnap.exists()) {
+          await setDoc(currentUserSwipeDocRef, { dislikedUsers: [] });
+        }
+  
+        // Ajoutez l'utilisateur disliké dans la liste
+        await updateDoc(currentUserSwipeDocRef, {
+          dislikedUsers: arrayUnion(userData.id),
+        });
+  
+        console.log(`User ${userData.id} disliked`);
+      } catch (error) {
+        console.error("Error updating disliked users: ", error);
+      }
+    } else {
+      console.error("Invalid userData object:", userData);
+    }
+  };
+
   
   const onSwipedAll = () => {
     setSwipedAll(true);
@@ -197,29 +269,33 @@ const SwipeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <DeckSwiper
-          ref={swiperRef}
-          cards={cards}
-          renderCard={renderCard}
-          stackSize={3}
-          stackSeparation={15}
-          backgroundColor="transparent"
-          cardVerticalMargin={0}
-          cardHorizontalMargin={-2}
-          borderRadius={0}
-          onSwipedAll={onSwipedAll}
-          disableBottomSwipe={true}
-          disableTopSwipe={true}
-          onSwipedRight={onMatchs}
-        />
+        {!swipedAll && cards.length > 0 && (
+          <DeckSwiper
+            ref={swiperRef}
+            cards={cards}
+            renderCard={renderCard}
+            stackSize={3}
+            stackSeparation={15}
+            backgroundColor="transparent"
+            cardVerticalMargin={0}
+            cardHorizontalMargin={-2}
+            borderRadius={0}
+            onSwipedAll={onSwipedAll}
+            disableBottomSwipe={true}
+            disableTopSwipe={true}
+            onSwipedRight={onMatchs}
+            onSwipedLeft={dislikeUser}
+          />
+        )}
+        {swipedAll && cards.length === 0 && (
+          <Text.Base style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontWeight: '600' }}>
+            Plus de swipe :/
+          </Text.Base>
+        )}
       </View>
-      {swipedAll && 
-        <Text className="flex-1 justify-center items-center text-center font-semibold">
-          Plus de swipe :/
-        </Text>
-      }
     </SafeAreaView>
   );
+  
 };
 
 export default SwipeScreen;

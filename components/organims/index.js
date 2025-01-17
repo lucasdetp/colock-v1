@@ -5,5 +5,6 @@ import MessageList from './MessageList';
 import ProfileList from './ProfileList';
 import AccountPictureName from './AccountPictureName';
 import ThreeSmallBoxes from './ThreeSmallBoxes';
+import * as SwipeCard from "./SwipeCard";
 
-export { RegistrationForm, LoginForm, PicturePicker, MessageList, ProfileList, AccountPictureName, ThreeSmallBoxes };
+export { RegistrationForm, LoginForm, PicturePicker, MessageList, ProfileList, AccountPictureName, ThreeSmallBoxes, SwipeCard };

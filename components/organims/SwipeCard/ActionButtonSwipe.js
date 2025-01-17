@@ -1,0 +1,37 @@
+import React from 'react';
+import { Container, Button } from '../../atoms';
+import SvgNop from "../../../assets/svg/nop";
+import SvgYes from "../../../assets/svg/yes";
+import SvgSave from "../../../assets/svg/save";
+import SvgEclair from "../../../assets/svg/eclair";
+
+
+const ActionButtonSwipe = ({ simulateSwipeLeft,  simulateSwipeRight}) => {
+    return (
+        <Container.BasicView style={{
+            position: "absolute", 
+            bottom: 80,  
+            left: 0, 
+            right: 0, 
+            flexDirection: "row", 
+            justifyContent: "space-around", 
+            paddingBottom: 80, 
+          }}
+          >
+            <Button.SecondSwipe onPress={simulateSwipeLeft}>
+              <SvgSave />
+            </Button.SecondSwipe>
+            <Button.Swipe onPress={simulateSwipeLeft}>
+              <SvgNop />
+            </Button.Swipe>
+            <Button.Swipe onPress={simulateSwipeRight}>
+              <SvgYes />
+            </Button.Swipe>
+            <Button.SecondSwipe onPress={simulateSwipeRight}>
+              <SvgEclair />
+            </Button.SecondSwipe>
+        </Container.BasicView>
+    );
+};
+
+export default ActionButtonSwipe;

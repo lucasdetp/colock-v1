@@ -1,8 +1,7 @@
-// components/atoms/Swipe.js
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const Swipe = ({ onPress, children, style }) => {
+const SecondSwipe = ({ onPress, children, style }) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
       <Text style={styles.buttonText}>{children}</Text>
@@ -13,16 +12,19 @@ const Swipe = ({ onPress, children, style }) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#7790ED",
-    padding: 25,
+    padding: 5,
+    width: 50,
+    height: 50,
+    top: 15,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: 'black',
   },
 });
 
-export default Swipe;
+export default SecondSwipe;
