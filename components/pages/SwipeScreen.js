@@ -4,7 +4,7 @@ import { View, SafeAreaView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DeckSwiper from "react-native-deck-swiper";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
-import { firestoreDB } from '../../config/firebase.config';
+import { firestoreDB, firebaseAuth } from '../../config/firebase.config';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SvgPlus from "../../assets/svg/plus";
 import { Container, Text} from '../atoms';
@@ -17,7 +17,7 @@ const SwipeScreen = () => {
   const [swipedAll, setSwipedAll] = useState(false);
   const swiperRef = useRef(null);
   const navigation = useNavigation();
-
+  const user = firebaseAuth.currentUser;
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -43,7 +43,7 @@ const SwipeScreen = () => {
     });
   
     return unsubscribe;
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (currentUser) {

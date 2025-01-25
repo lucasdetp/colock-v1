@@ -1,12 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import AccountScreenTemplate from '../templates/AccountScreenTemplate';
+import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const AccountScreen = () => {
-  const user = useSelector((state) => state.user.user?.user || state.user.user || {});
   const navigation = useNavigation();
+  const [userData, setUserData] = useState(null);
+
+  const user = firebaseAuth.currentUser;
+
+  useEffect(() => {
+    if (user) {
+      const unsubscribe = onSnapshot(doc(firestoreDB, 'users', user.uid), (docSnap) => {
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+
+const calculateFillPercentage = () => {
+    const totalFields = 8;
+    let filledFields = 0;
+
+    if (userData?.fullName) filledFields++;
+    if (userData?.lastName) filledFields++;
+    if (userData?.birthdate) filledFields++;
+    if (userData?.facturationAddress) filledFields++;
+    if (userData?.nameCard) filledFields++;
+    if (userData?.numberCard) filledFields++;
+    if (userData?.dateCard) filledFields++;
+    if (userData?.ccvCard) filledFields++;
+
+    return Math.round((filledFields / totalFields) * 100);
+  };
+
+  const AboutMePourcentage = calculateFillPercentage(); 
 
   const boxImages = [
     {
@@ -43,7 +77,7 @@ const AccountScreen = () => {
                 </svg>
                 `,
       text: 'Mes informations personnelles',
-      percentage: 80,
+      percentage: AboutMePourcentage,
       onPress: () => navigation.navigate('AboutMeScreen'),
     },
     {
@@ -112,9 +146,9 @@ const AccountScreen = () => {
 
   return (
     <AccountScreenTemplate
-      userName={user.fullName || "Utilisateur"}
-      profilePic={user.profilePic || "https://example.com/default-profile.png"}
-      additionalDetails={user.bio || "Aucun détail supplémentaire disponible"}
+      userName={userData?.fullName || "Utilisateur"}
+      profilePic={userData?.profilePic || "https://example.com/default-profile.png"}
+      additionalDetails={userData?.bio || "Aucun détail supplémentaire disponible"}
       boxImages={boxImages}
       largeBoxData={largeBoxData}
       infoBoxData={infoBoxData}
