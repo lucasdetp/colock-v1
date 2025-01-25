@@ -44,7 +44,7 @@ const RegisterScreen = () => {
       };
       await setDoc(doc(firestoreDB, 'users', userCred.user.uid), data);
       dispatch(SET_USER(data));
-      navigation.navigate('AddPictureScreen', { userId: userCred.user.uid });
+      navigation.navigate('WelcomeScreen');
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error.message);
     }

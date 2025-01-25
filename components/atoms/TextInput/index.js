@@ -1,3 +1,4 @@
-import { Base } from './Base';
+import Base from './Base';
+import City from './City';
 
-export { Base };
+export { Base, City };

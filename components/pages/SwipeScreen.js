@@ -113,8 +113,12 @@ const SwipeScreen = () => {
 
   const renderCard = (userData) => {
     const profilePic = userData?.profilePic;
+    const profilePic2 = userData?.profilePic2;
+    const profilePic3 = userData?.profilePic3;
     const bio = userData?.bio || "Pas de description";
     const name = userData?.fullName;
+    const citySearch = userData?.citySearch;
+    const loisirs = userData?.loisirs || [];
   
     return (
       <TouchableOpacity style={{ flex: 1, backgroundColor: "white", borderRadius: 15, overflow: "hidden" }}>
@@ -122,9 +126,9 @@ const SwipeScreen = () => {
             <SwipeCard.ImageSwipe profilePic={profilePic} />
 
             <Container.BasicView style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 10, marginBottom: 20 }}>
-              <SwipeCard.SpecialSwipe caractere="Lyon et périphérie" />
-              <SwipeCard.SpecialSwipe caractere="Animaux" />
-              <SwipeCard.SpecialSwipe caractere="Fumeur" />
+              <SwipeCard.SpecialSwipe caractere={citySearch} />
+              <SwipeCard.SpecialSwipe caractere={loisirs[0]} />
+              <SwipeCard.SpecialSwipe caractere={loisirs[1]} />
             </Container.BasicView>
 
             {/* Localisation et Date */}
@@ -137,9 +141,11 @@ const SwipeScreen = () => {
             onPress={() => navigation.navigate('SwipePlusScreen', { 
               name: name, 
               profilePic: profilePic,
-              location: "Lyon et périphérie",
-              carac2: "Animaux",
-              carac3: "Fumeur",
+              profilePic2: profilePic2,
+              profilePic3: profilePic3,
+              location: citySearch,
+              carac2: loisirs[0],
+              carac3: loisirs[1],
               date: "12/12/2021",
               bio: bio,
             })}

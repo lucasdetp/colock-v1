@@ -4,7 +4,7 @@ import { Container } from '../atoms';
 import { SwipeCard } from "../organims";
 
 const SwipePlusScreen = ({ route }) => {
-  const { name, profilePic, location, carac2, carac3, date, bio } = route.params;
+  const { name, profilePic, profilePic2, profilePic3, location, carac2, carac3, date, bio } = route.params;
 
   return (
     <Container.BasicView style={{ flex: 1, backgroundColor: "white", marginTop: 50, marginBottom: 50 }}>
@@ -19,11 +19,12 @@ const SwipePlusScreen = ({ route }) => {
                     <SwipeCard.SpecialSwipe caractere={carac3} />
                 </Container.BasicView>
 
-                {/* Localisation et Date */}
                 <SwipeCard.DateSwipe date={date} />
+                {profilePic2 && <SwipeCard.ImageSwipe profilePic={profilePic2} />}
 
-                {/* Description */}
                 <SwipeCard.DescriptionSwipe bio={bio} />
+                {profilePic3 && <SwipeCard.ImageSwipe profilePic={profilePic3} />}
+                
             </TouchableOpacity>
         </ScrollView>
     </Container.BasicView>

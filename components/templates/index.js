@@ -7,5 +7,9 @@ import ChatTemplate from './ChatTemplate';
 import AccountScreenTemplate from './AccountScreenTemplate';
 import AboutMeTemplate from './AboutMeTemplate';
 import AboutMe2Template from './AboutMe2Template';
+import WelcomeTemplate from './WelcomeTemplate';
+import WhoTemplate from './WhoTemplate';
+import WhereTemplate from './WhereTemplate';
+import LikesTemplate from './LikesTemplate';
 
-export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template };
+export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate};

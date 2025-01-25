@@ -13,6 +13,8 @@ import {Text} from "../atoms"
 
 const AddPictureScreen = ({ navigation }) => {
   const [profilePic, setProfilePic] = useState(null);
+  const [profilePic2, setProfilePic2] = useState(null);
+  const [profilePic3, setProfilePic3] = useState(null);
   const [bio, setBio] = useState("");
   const route = useRoute();
   const { userId } = route.params || {};
@@ -22,7 +24,7 @@ const AddPictureScreen = ({ navigation }) => {
     return <Text.Base> </Text.Base>; // TOOD
   }
 
-  const handleAvatar = async () => {
+  const handleAvatar = async (imageIndex) => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -41,11 +43,13 @@ const AddPictureScreen = ({ navigation }) => {
         const response = await fetch(result.assets[0].uri);
         const blob = await response.blob();
 
-        const uploadTask = uploadBytes(storageRef, blob);
-        const snapshot = await uploadTask;
+        const snapshot = await uploadBytes(storageRef, blob);
 
         const imageUrl = await getDownloadURL(snapshot.ref);
-        setProfilePic(imageUrl);
+
+        if (imageIndex === 1) setProfilePic(imageUrl);
+        if (imageIndex === 2) setProfilePic2(imageUrl);
+        if (imageIndex === 3) setProfilePic3(imageUrl);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -55,11 +59,13 @@ const AddPictureScreen = ({ navigation }) => {
   const saveProfile = async () => {
     try {
       const userDocRef = doc(firestoreDB, "users", userId);
-      await updateDoc(userDocRef, { profilePic, bio });
+      await updateDoc(userDocRef, { profilePic, profilePic2, profilePic3, bio });
   
       const updatedUser = {
         _id: userId,
         profilePic,
+        profilePic2,
+        profilePic3,
         bio,
       };
       dispatch(SET_USER(updatedUser));
@@ -77,13 +83,15 @@ const AddPictureScreen = ({ navigation }) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 34 : 0}
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <AddPictureTemplate
-          profilePic={profilePic}
-          handleAvatar={handleAvatar}
-          bio={bio}
-          setBio={setBio}
-          saveProfile={saveProfile}
-        />
+      <AddPictureTemplate
+        profilePic={profilePic}
+        profilePic2={profilePic2}
+        profilePic3={profilePic3}
+        handleAvatar={(index) => handleAvatar(index)}
+        bio={bio}
+        setBio={setBio}
+        saveProfile={saveProfile}
+      />
       </ScrollView>
     </KeyboardAvoidingView>
   );
