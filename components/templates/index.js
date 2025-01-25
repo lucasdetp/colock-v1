@@ -11,5 +11,8 @@ import WelcomeTemplate from './WelcomeTemplate';
 import WhoTemplate from './WhoTemplate';
 import WhereTemplate from './WhereTemplate';
 import LikesTemplate from './LikesTemplate';
+import IdentityTemplate from './IdentityTemplate';
+import RythmePreferenceTemplate from './RythmePreferenceTemplate';
+import PrincipalCaractereTemplate from './PrincipalCaractereTemplate';
 
-export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate};
+export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate, IdentityTemplate, RythmePreferenceTemplate, PrincipalCaractereTemplate };

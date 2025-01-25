@@ -15,7 +15,6 @@ const WhoScreen = () => {
   };
 
   const saveUserData = async ({ gender, showGender, lookingFor }) => {
-    console.log(showGender)
     try {
       const userId = firebaseAuth.currentUser.uid;
 

@@ -1,6 +1,9 @@
-import React from 'react';
-import { View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import AboutMe2Template from '../templates/AboutMe2Template';
+import { useNavigation } from 'expo-router';
+import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const aboutMeData = [
   {
@@ -10,27 +13,70 @@ const aboutMeData = [
         </svg>
     `,
     title: 'A propos de toi',
-    percentage: 88,
+    percentage: 8,
   }
 ];
 
-const infoBoxData = [
-  {
-    text: 'Tu te définis comme ...',
-    onPress: () => console.log('Tu te définis comme ...'),
-  },
-  {
-    svgSource: ``,
-    text: 'Niveaui rythme, tu es plutôt ...',
-    onPress: () => console.log('Tu te définis comme ...'),
-  },
-  {
-    text: 'Tes 3 traits de caractères principaux',
-    onPress: () => console.log('Rediriger vers une autre section'),
-  },
-];
-
 const AboutMeScreen2 = () => {
+  const navigation = useNavigation();
+  const [completionPercentage, setCompletionPercentage] = useState(0);
+  const [userData, setUserData] = useState(null);
+  const user = firebaseAuth.currentUser;
+
+  const infoBoxData = [
+    {
+      text: 'Tu te définis comme ...',
+      onPress: () => navigation.navigate('IdentityScreen'),
+    },
+    {
+      svgSource: ``,
+      text: 'Niveau rythme, tu es plutôt ...',
+      onPress: () => navigation.navigate('RythmePreferenceScreen'),
+    },
+    {
+      text: 'Tes 3 traits de caractères principaux',
+      onPress: () => navigation.navigate('PrincipalCaractereScreen'),
+    },
+  ];
+
+  const calculateCompletionPercentage = () => {
+    if (userData) {
+      let filledFields = 0;
+      const totalFields = 6;
+
+      if (userData.showGender !== undefined) filledFields++;
+      if (userData.rythme !== undefined) filledFields++;
+
+      if (userData?.traitsCaracterePrincipaux?.[0] !== null) filledFields++;
+      if (userData?.traitsCaracterePrincipaux?.[1] !== null) filledFields++;
+      if (userData?.traitsCaracterePrincipaux?.[2] !== null) filledFields++;
+
+      if (userData.gender !== undefined) filledFields++;
+
+      const percentage = Math.round((filledFields / totalFields) * 100);
+      setCompletionPercentage(percentage);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      const unsubscribe = onSnapshot(doc(firestoreDB, 'users', user.uid), (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUserData(data);
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userData) {
+      calculateCompletionPercentage();
+    }
+  }, [userData]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -39,7 +85,7 @@ const AboutMeScreen2 = () => {
             key={index}
             svgSource={item.svgSource}
             title={item.title}
-            percentage={item.percentage}
+            percentage={completionPercentage}
             infoBoxData={infoBoxData}
           />
         ))}

@@ -24,7 +24,7 @@ const AccountScreen = () => {
     }
   }, [user]);
 
-const calculateFillPercentage = () => {
+  const calculateFillPercentage = () => {
     const totalFields = 8;
     let filledFields = 0;
 
@@ -41,6 +41,24 @@ const calculateFillPercentage = () => {
   };
 
   const AboutMePourcentage = calculateFillPercentage(); 
+
+
+  const calculateCompletionAboutMe2 = () => {
+    let filledFields = 0;
+    const totalFields = 6;
+
+    if (userData.showGender !== undefined) filledFields++;
+    if (userData.rythme !== undefined) filledFields++;
+
+    if (userData?.traitsCaracterePrincipaux?.[0] !== null) filledFields++;
+    if (userData?.traitsCaracterePrincipaux?.[1] !== null) filledFields++;
+    if (userData?.traitsCaracterePrincipaux?.[2] !== null) filledFields++;
+
+    if (userData.gender !== undefined) filledFields++;
+    return Math.round((filledFields / totalFields) * 100);
+  };
+
+  const AboutMe2Pourcentage = calculateCompletionAboutMe2(); 
 
   const boxImages = [
     {
@@ -86,7 +104,7 @@ const calculateFillPercentage = () => {
                 </svg>
                 `,
       text: 'À propos de moi',
-      percentage: 60,
+      percentage: AboutMe2Pourcentage,
       onPress: () => navigation.navigate('AboutMeScreen2'),
     },
     {
