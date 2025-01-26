@@ -44,14 +44,14 @@ const AboutMeScreen2 = () => {
       let filledFields = 0;
       const totalFields = 6;
 
-      if (userData.showGender !== undefined) filledFields++;
-      if (userData.rythme !== undefined) filledFields++;
+      if (userData?.showGender !== undefined) filledFields++;
+      if (userData?.rythme !== undefined) filledFields++;
 
       if (userData?.traitsCaracterePrincipaux?.[0] !== null) filledFields++;
       if (userData?.traitsCaracterePrincipaux?.[1] !== null) filledFields++;
       if (userData?.traitsCaracterePrincipaux?.[2] !== null) filledFields++;
 
-      if (userData.gender !== undefined) filledFields++;
+      if (userData?.gender !== undefined) filledFields++;
 
       const percentage = Math.round((filledFields / totalFields) * 100);
       setCompletionPercentage(percentage);
