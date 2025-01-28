@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, TouchableOpacity, TextInput, Button, Alert, KeyboardAvoidingView, Platform } from 'react-native';
-import { flecheBas, flecheHaut } from '../../assets';
+import { StyleSheet, TouchableOpacity, TextInput, Button, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { Container, Text } from '../atoms';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { SwipeCard } from '../organims';
+import SvgFlecheBas from "../../assets/svg/flecheBas";
+import SvgFlecheHaut from "../../assets/svg/flecheHaut";
+import SvgFlecheRetour from "../../assets/svg/flecheRetour";
+import { useNavigation } from 'expo-router';
 
 const AboutMe = ({ svgSource, title }) => {
   const [showPersonalForm, setShowPersonalForm] = useState(false);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const navigation = useNavigation();
+
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
@@ -112,6 +117,9 @@ const AboutMe = ({ svgSource, title }) => {
     >
       <Container.BasicView style={styles.mainContainer}>
         <Container.BasicView style={styles.headerContainer}>
+          <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+            <SvgFlecheRetour />
+          </TouchableOpacity>
           <SvgXml xml={svgSource} style={styles.image} />
           <Text.Base style={styles.title}>{title}</Text.Base>
           <Container.BasicView style={styles.percentageCircle}>
@@ -127,10 +135,9 @@ const AboutMe = ({ svgSource, title }) => {
             <Text.Base style={styles.buttonText}>
               Nom, prénom, date de naissance...
             </Text.Base>
-            <Image
-              source={showPersonalForm ? flecheHaut : flecheBas}
-              style={styles.arrow}
-            />
+            <Container.BasicView style={styles.arrow}>
+              {showPersonalForm ? <SvgFlecheHaut /> : <SvgFlecheBas />}
+            </Container.BasicView>
           </TouchableOpacity>
 
           {/* Formulaire déroulant : Informations personnelles */}
@@ -178,10 +185,9 @@ const AboutMe = ({ svgSource, title }) => {
             onPress={() => setShowPaymentForm(!showPaymentForm)}
           >
             <Text.Base style={styles.buttonText}>Tes moyens de payement...</Text.Base>
-            <Image
-              source={showPaymentForm ? flecheHaut : flecheBas}
-              style={styles.arrow}
-            />
+            <Container.BasicView style={styles.arrow}>
+              {showPaymentForm ? <SvgFlecheHaut /> : <SvgFlecheBas />}
+            </Container.BasicView>
           </TouchableOpacity>
 
           {/* Formulaire déroulant : Informations de paiement */}
@@ -230,9 +236,9 @@ const AboutMe = ({ svgSource, title }) => {
         </Container.BasicView>
       </Container.BasicView>
         <Text.Base style={styles.titleH2}>Tes photos</Text.Base>
-        <SwipeCard.ImageSwipe profilePic={userData?.profilePic} />
-        <SwipeCard.ImageSwipe profilePic={userData?.profilePic2} />
-        <SwipeCard.ImageSwipe profilePic={userData?.profilePic3} />
+        {userData.profilePic && <SwipeCard.ImageSwipe profilePic={userData?.profilePic} />}
+        {userData.profilePic2 && <SwipeCard.ImageSwipe profilePic={userData?.profilePic2} />}
+        {userData.profilePic3 && <SwipeCard.ImageSwipe profilePic={userData?.profilePic3} />}
 
     </KeyboardAvoidingView>
   );
@@ -260,6 +266,9 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  goBack: {
+    marginRight: 10,
+  },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -268,9 +277,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   percentageCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 35,
     borderWidth: 3,
     borderColor: '#7790ED',
     justifyContent: 'center',
@@ -309,9 +318,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   arrow: {
-    width: 30,
-    height: 17,
-    tintColor: '#6D6D6D',
+    marginTop: 5,
+    paddingLeft: 20,
   },
   form: {
     marginTop: 10,

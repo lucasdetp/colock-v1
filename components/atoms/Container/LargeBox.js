@@ -20,7 +20,7 @@ const LargeBox = ({ imageSource, text, style }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '95%',
     height: 200,
     padding: 10,
     backgroundColor: '#fff',

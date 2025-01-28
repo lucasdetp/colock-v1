@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import {
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { Container, Text } from '../atoms';
 import InfoBox from '../atoms/Container/InfoBox';
+import SvgFlecheRetour from '../../assets/svg/flecheRetour';
+import { useNavigation } from 'expo-router';
 
 const AboutMe2Template = ({ svgSource, title, percentage, infoBoxData }) => {
+  const navigation = useNavigation();
   return (
     <Container.BasicView style={styles.mainContainer}>
       <Container.BasicView style={styles.headerContainer}>
+        <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+          <SvgFlecheRetour />
+        </TouchableOpacity>
         <SvgXml xml={svgSource} style={styles.image} />
         <Text.Base style={styles.title}>{title}</Text.Base>
         <Container.BasicView style={styles.percentageCircle}>
@@ -53,6 +60,9 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  goBack: {
+    marginRight: 10,
+  },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -61,9 +71,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   percentageCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 35,
     borderWidth: 3,
     borderColor: '#7790ED',
     justifyContent: 'center',

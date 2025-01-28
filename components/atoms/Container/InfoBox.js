@@ -24,11 +24,12 @@ const InfoBox = ({ svgSource, text, percentage, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: '90%',
+    width: '95%',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 10,
     marginVertical: 5,
+    marginBottom: 15,
     backgroundColor: '#f7f7f7',
     borderRadius: 10,
     elevation: 3,

@@ -181,18 +181,21 @@ const styles = StyleSheet.create({
   level1: {
     height: 150,
     width: 120,
-    backgroundColor: '#ffd700',
+    backgroundColor: '#7790ED',
+    borderColor: '#7790ED',
   },
   level2: {
     height: 110,
     width: 110,
-    backgroundColor: '#c0c0c0',
+    backgroundColor: '#7790ED',
+    borderColor: '#7790ED',
     marginTop: 40,
   },
   level3: {
     height: 90,
     width: 100,
-    backgroundColor: '#cd7f32',
+    backgroundColor: '#7790ED',
+    borderColor: '#7790ED',
     marginTop: 60,
   },
   podiumText: {

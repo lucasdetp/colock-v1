@@ -19,9 +19,12 @@ const DateSwipe = ({ date }) => {
             shadowRadius: 6, 
             marginHorizontal: 10,
         }}>
-            <Text.Base style={{ fontSize: 12, color: "gray" }}>
-                <SvgCalandar /> Disponible le {date}
+            <Container.BasicView style={{ flexDirection: "row", alignItems: "center" }}>
+            <SvgCalandar />
+            <Text.Base style={{ fontSize: 12, color: "gray", marginLeft: 10 }}>
+                Disponible le {date}
             </Text.Base>
+            </Container.BasicView>
         </Container.BasicView>
     );
 };

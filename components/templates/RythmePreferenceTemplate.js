@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   percentageCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 35,
     borderWidth: 3,
     borderColor: '#7790ED',
     justifyContent: 'center',

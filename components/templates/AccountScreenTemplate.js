@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   boxStyle: {
-    margin: 10,
+    marginTop: 15,
+    marginBottom: 15,
   },
   scrollContainer: {
     alignItems: 'center',
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   },
   detailsBox: {
     marginTop: 20,
-    padding: 15,
+    padding: 10,
     backgroundColor: '#fff',
     borderRadius: 10,
     shadowColor: '#000',
@@ -90,14 +91,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3, // Pour Android
-    width: '90%',
+    width: '95%',
     alignSelf: 'center',
   },
   boxContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
-    width: '90%',
+    width: '95%',
     alignSelf: 'center',
   },
   smallBox: {

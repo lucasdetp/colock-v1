@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '90%',
+    width: '95%',
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 15,
   },
   smallBox: {
     flex: 1,
     marginHorizontal: 5,
+    borderRadius: 15,
   },
   middleBox: {
     flex: 2,
