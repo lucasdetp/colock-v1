@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, SwipeScreen, AccountScreen } from '@/components/pages';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen } from '@/components/pages';
 import SvgAccount from '@/assets/svg/account';
 import SvgAccountFull from '@/assets/svg/accountFull';
 import SvgMessage from '@/assets/svg/message';
@@ -11,8 +12,29 @@ import SvgSwipeFull from '@/assets/svg/swipeFull';
 import { Container } from '@/components/atoms';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 const { width } = Dimensions.get('window');
 
+const AccountStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="AccountMain" component={AccountScreen} />
+      <Stack.Screen name="AboutMeScreen" component={AboutMeScreen} />
+      <Stack.Screen name="AboutMeScreen2" component={AboutMeScreen2} />
+      <Stack.Screen name="IdentityScreen" component={IdentityScreen} />
+      <Stack.Screen name="RythmePreferenceScreen" component={RythmePreferenceScreen} />
+      <Stack.Screen name="PrincipalCaractereScreen" component={PrincipalCaractereScreen} />
+    </Stack.Navigator>
+  );
+};
+const SwipeStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="SwipeScreen" component={SwipeScreen} />
+      <Stack.Screen name="SwipePlusScreen" component={SwipePlusScreen} />
+    </Stack.Navigator>
+  );
+};
 const CustomTabBar = ({ state, descriptors, navigation }) => {
   const tabWidth = width / state.routes.length;
   const translateX = useRef(new Animated.Value(0)).current;
@@ -69,9 +91,9 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 const TabNavigator = () => {
   return (
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Swipe" component={SwipeScreen} />
+      <Tab.Screen name="Swipe" component={SwipeStack} />
       <Tab.Screen name="Messages" component={HomeScreen} />
-      <Tab.Screen name="Account" component={AccountScreen} />
+      <Tab.Screen name="Account" component={AccountStack} />
     </Tab.Navigator>
   );
 };

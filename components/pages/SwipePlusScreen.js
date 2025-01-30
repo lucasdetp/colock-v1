@@ -9,7 +9,7 @@ const SwipePlusScreen = ({ route }) => {
   const { name, profilePic, profilePic2, profilePic3, dateDispo, location, carac2, carac3, date, bio } = route.params;
   const navigation = useNavigation();
   return (
-    <Container.BasicView style={{ flex: 1, backgroundColor: "white", marginTop: 50, marginBottom: 50, padding: 20}}>
+    <Container.BasicView style={{ flex: 1, backgroundColor: "white", marginTop:30, padding: 20}}>
         <Container.BasicView 
           style={{ 
             flexDirection: "row", 

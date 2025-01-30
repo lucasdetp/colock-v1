@@ -83,6 +83,7 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
 
   return (
     <Container.BasicView style={styles.mainContainer}>
+      <Container.BasicScrollView>
       <Container.BasicView style={styles.headerContainer}>
         <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
           <SvgFlecheRetour />
@@ -95,9 +96,9 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
         <Container.BasicView style={styles.podiumRow}>
           <Container.BasicView style={styles.podiumItemContainer}>
             <Container.BasicView style={styles.podiumTitleContainer}>
-              <Text.Base style={styles.podiumTitle}>{podium[1] || "Trait 2"}</Text.Base>
+              <Text.Base style={styles.podiumTitle2}>{podium[1] || "Trait 2"}</Text.Base>
               {podium[1] && (
-                <TouchableOpacity onPress={() => removeFromPodium(1)} style={styles.removeButtonOutside}>
+                <TouchableOpacity onPress={() => removeFromPodium(1)} style={styles.removeButtonOutside2}>
                   <Text.Base style={styles.removeText}>
                     <SvgCroix />
                   </Text.Base>
@@ -127,9 +128,9 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
 
           <Container.BasicView style={styles.podiumItemContainer}>
             <Container.BasicView style={styles.podiumTitleContainer}>
-              <Text.Base style={styles.podiumTitle}>{podium[2] || "Trait 3"}</Text.Base>
+              <Text.Base style={styles.podiumTitle3}>{podium[2] || "Trait 3"}</Text.Base>
               {podium[2] && (
-                <TouchableOpacity onPress={() => removeFromPodium(2)} style={styles.removeButtonOutside}>
+                <TouchableOpacity onPress={() => removeFromPodium(2)} style={styles.removeButtonOutside3}>
                   <Text.Base style={styles.removeText}>
                     <SvgCroix />
                   </Text.Base>
@@ -170,6 +171,7 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
           <Text.Base style={styles.messageText}>{message}</Text.Base>
         </Container.BasicView>
       )}
+      </Container.BasicScrollView>
     </Container.BasicView>
   );
 };
@@ -187,11 +189,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     marginTop: 20,
     borderRadius: 10,
+    width: '50%',
+    alignSelf: 'center',
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   title: {
     fontSize: 22,
@@ -254,6 +260,34 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 15,
   },
+  podiumTitle2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    borderColor: '#6A7CFF',
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
+    paddingRight: 30,
+    top: 40,
+    maxWidth: 150,
+    flexShrink: 1,
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  podiumTitle3: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    borderColor: '#6A7CFF',
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
+    paddingRight: 30,
+    top: 60,
+    maxWidth: 150,
+    flexShrink: 1,
+    textAlign: 'center',
+    marginBottom: 15,
+  },
   podiumItem: {
     width: 100,
     height: 100,
@@ -296,6 +330,24 @@ const styles = StyleSheet.create({
     right: 10,
     top: '50%',
     transform: [{ translateY: -35 }],
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  removeButtonOutside2: {
+    position: 'absolute',
+    right: 10,
+    top: '100%',
+    transform: [{ translateY: -25 }],
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  removeButtonOutside3: {
+    position: 'absolute',
+    right: 10,
+    top: '100%',
+    transform: [{ translateY: -5 }],
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
