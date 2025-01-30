@@ -11,7 +11,6 @@ const HomeTemplate = ({ chats, isLoading, onPressMessage, auth }) => {
       
       <ScrollView>
         <View style={{ padding: 10 }}>
-          <Text.Base style={{ fontWeight: 'bold', fontSize: 20 }}>Messages</Text.Base>
           <MessageList 
             chats={chats} 
             isLoading={isLoading} 

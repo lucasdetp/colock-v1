@@ -5,6 +5,9 @@ import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import SvgCroix from '../../assets/svg/croix';
 import { SvgXml } from 'react-native-svg';
+import { useNavigation } from 'expo-router';
+import SvgFlecheRetour from '../../assets/svg/flecheRetour';
+import { goBack } from 'expo-router/build/global-state/routing';
 
 const PrincipalCaractereTemplate = ({ svgSource, title }) => {
   const [podium, setPodium] = useState([null, null, null]);
@@ -13,6 +16,7 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
   ]);
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -80,6 +84,9 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
   return (
     <Container.BasicView style={styles.mainContainer}>
       <Container.BasicView style={styles.headerContainer}>
+        <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+          <SvgFlecheRetour />
+        </TouchableOpacity>
         <SvgXml xml={svgSource} style={styles.image} />
         <Text.Base style={styles.title}>{title}</Text.Base>
       </Container.BasicView>
@@ -192,6 +199,9 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'left',
     marginLeft: 10,
+  },
+  goBack: {
+    marginRight: 10,
   },
   mainContainer: {
     flex: 1,

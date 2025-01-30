@@ -5,12 +5,15 @@ import { Container, Text } from '../atoms';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { SvgXml } from 'react-native-svg';
+import SvgFlecheRetour from '../../assets/svg/flecheRetour';
+import { useNavigation } from 'expo-router';
 
 const RythmePreferenceTemplate = ({ svgSource, title }) => {
   const [rythme, setRythme] = useState(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -63,6 +66,9 @@ const RythmePreferenceTemplate = ({ svgSource, title }) => {
   return (
       <Container.BasicView style={styles.mainContainer}>
         <Container.BasicView style={styles.headerContainer}>
+          <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+            <SvgFlecheRetour />
+          </TouchableOpacity>
           <SvgXml xml={svgSource} style={styles.image} />
           <Text.Base style={styles.title}>{title}</Text.Base>
         </Container.BasicView>
@@ -113,10 +119,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    width: '90%',
+    width: '100%',
     padding: 15,
     backgroundColor: '#fff',
     elevation: 3,
+  },
+  goBack: {
+    marginRight: 10,
   },
   image: {
     width: 60,

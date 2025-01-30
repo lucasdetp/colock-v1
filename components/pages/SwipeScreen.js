@@ -119,20 +119,21 @@ const SwipeScreen = () => {
     const name = userData?.fullName;
     const citySearch = userData?.citySearch;
     const loisirs = userData?.loisirs || [];
+    const dateDispo = userData?.dateDispo;
   
     return (
-      <TouchableOpacity style={{ flex: 1, backgroundColor: "white", borderRadius: 15, overflow: "hidden" }}>
+      <TouchableOpacity style={{ flex: 1, backgroundColor: "white", borderRadius: 15, overflow: "hidden", padding: 20 }}>
             <SwipeCard.NameSwipe name={name} />
             <SwipeCard.ImageSwipe profilePic={profilePic} />
 
             <Container.BasicView style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 10, marginBottom: 20 }}>
               <SwipeCard.SpecialSwipe caractere={citySearch} />
-              <SwipeCard.SpecialSwipe caractere={loisirs[0]} />
-              <SwipeCard.SpecialSwipe caractere={loisirs[1]} />
+              <SwipeCard.SpecialSwipeNoImage caractere={loisirs[0]} />
+              <SwipeCard.SpecialSwipeNoImage caractere={loisirs[1]} />
             </Container.BasicView>
 
             {/* Localisation et Date */}
-            <SwipeCard.DateSwipe date="12/12/2021" />
+            {dateDispo && <SwipeCard.DateSwipe date={dateDispo} />}
 
           {/* Description */}
           <SwipeCard.DescriptionSwipe bio={bio} />  
@@ -143,6 +144,7 @@ const SwipeScreen = () => {
               profilePic: profilePic,
               profilePic2: profilePic2,
               profilePic3: profilePic3,
+              dateDispo: dateDispo,
               location: citySearch,
               carac2: loisirs[0],
               carac3: loisirs[1],

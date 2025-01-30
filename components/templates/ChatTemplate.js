@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, KeyboardAvoidingView, Image, Platform } from 'react-native';
+import { TextInput, KeyboardAvoidingView, Image, Platform, View } from 'react-native';
 import { Text, Container, Button } from '../atoms';
 import { FontAwesome, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
@@ -27,35 +27,45 @@ const ChatTemplate = ({
 
   return (
     <Container.BasicView style={{ flex: 1 }}>
-      {/* Barre de navigation avec flèche de retour et nom d'utilisateur */}
       <Container.BasicView style={{ 
-        backgroundColor: '#6d24a5', 
+        backgroundColor: '#fff', 
         flexDirection: 'row', 
         alignItems: 'center', 
-        paddingVertical: 10, 
+        paddingVertical: 20, 
+        justifyContent: 'space-between',
         paddingHorizontal: 16, 
         paddingTop: Platform.OS === 'ios' ? 50 : 20,
-        justifyContent: 'center',
       }}>
-        <Button.BasicButton onPress={onBackPress} style={{ position: 'absolute', left: 16, top: 45, zIndex: 1, }}>
-          <MaterialIcons name="chevron-left" size={28} color="#fff" />
+        <Button.BasicButton onPress={onBackPress} style={{ marginRight: 10 }}>
+          <MaterialIcons name="chevron-left" size={28} color="black" />
         </Button.BasicButton>
 
         <Text.Base style={{ 
-          color: '#fff', 
+          color: 'black', 
           fontSize: 18, 
-          textAlign: 'center', 
-          flex: 1 
+          fontWeight: 'bold',
         }}>
           {otherUserName}
         </Text.Base>
+        {/* Photo de profil */}
+        {otherUserProfilePic !== 'N/A' ? (
+          <Image
+            source={{ uri: otherUserProfilePic }}
+            style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }}
+          />
+        ) : (
+          <FontAwesome5 
+            name="user-circle" 
+            size={40} 
+            color="#ccc" 
+            style={{ marginRight: 10 }} 
+          />
+        )}
       </Container.BasicView>
-
 
       <KeyboardAvoidingView 
         style={{ flex: 1 }} 
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0} 
       >
         <Container.BasicScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 16 }}>
           {isLoading ? (
@@ -68,51 +78,64 @@ const ChatTemplate = ({
                 <Container.BasicView 
                   key={index} 
                   style={{ 
-                    flexDirection: 'row', 
-                    justifyContent: isSentByCurrentUser ? 'flex-end' : 'flex-start', 
-                    marginVertical: 5,
-                    alignItems: 'center',
+                    flexDirection: isSentByCurrentUser ? 'row-reverse' : 'row', 
+                    alignItems: 'flex-end',
+                    marginVertical: 15,
+                    paddingHorizontal: 15,
                   }}
                 >
-                  {/* Affichage de la photo de profil uniquement pour l'autre utilisateur */}
-                  {!isSentByCurrentUser && (
-                    otherUserProfilePic !== 'N/A' ? (
-                      <Image
-                        source={{ uri: otherUserProfilePic }}
-                        style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }}
-                      />
-                    ) : (
-                      <FontAwesome5 
-                        name="user-circle" 
-                        size={40} 
-                        color="#ccc" 
-                        style={{ marginRight: 10 }} 
-                      />
-                    )
-                  )}
 
-                  <Container.BasicView>
-                    {/* bulle de message */}
-                    <Container.BasicView style={{
-                      padding: 10,
-                      backgroundColor: isSentByCurrentUser ? '#6d24a5' : '#e5e5e5',
-                      borderRadius: 20,
-                    }}>
+                  {/* Bulle de message avec pic */}
+                  <View style={{ 
+                    maxWidth: '75%', 
+                    position: 'relative',
+                  }}>
+                    <View 
+                      style={{
+                        padding: 10,
+                        backgroundColor: isSentByCurrentUser ? '#6d24a5' : '#e5e5e5',
+                        borderRadius: 15,
+                        position: 'relative',
+                      }}
+                    >
                       <Text.Base style={{ color: isSentByCurrentUser ? '#fff' : '#000' }}>
                         {msg.message}
                       </Text.Base>
-                    </Container.BasicView>
+
+                      {/* Pic de la bulle */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: 8,
+                          [isSentByCurrentUser ? 'right' : 'left']: -8,
+                          width: 0,
+                          height: 0,
+                          borderTopWidth: 10,
+                          borderTopColor: 'transparent',
+                          borderBottomWidth: 10,
+                          borderBottomColor: 'transparent',
+                          borderLeftWidth: isSentByCurrentUser ? 10 : 0,
+                          borderLeftColor: isSentByCurrentUser ? '#6d24a5' : 'transparent',
+                          borderRightWidth: isSentByCurrentUser ? 0 : 10,
+                          borderRightColor: isSentByCurrentUser ? 'transparent' : '#e5e5e5',
+                        }}
+                      />
+                    </View>
+
+                    {/* Heure du message */}
                     <Text.Base 
                       style={{ 
                         fontSize: 12, 
                         color: '#666', 
-                        marginTop: 1, 
-                        alignSelf: isSentByCurrentUser ? 'flex-end' : 'flex-start' 
+                        marginTop: 2,
+                        marginLeft: isSentByCurrentUser ? 0 : 10,
+                        marginRight: isSentByCurrentUser ? 10 : 0, 
+                        alignSelf: isSentByCurrentUser ? 'flex-end' : 'flex-start',
                       }}
                     >
                       {formatTime(msg.timeStamp)}
                     </Text.Base>
-                  </Container.BasicView>
+                  </View>
                 </Container.BasicView>
               );
             })
@@ -133,6 +156,7 @@ const ChatTemplate = ({
             }}
             placeholder="Message..."
             value={message}
+            multiline={true}
             onChangeText={setMessage}
           />
           <Button.BasicButton onPress={sendMessage} style={{ marginLeft: 10 }}>

@@ -5,6 +5,8 @@ import { Container, Text } from '../atoms';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { SvgXml } from 'react-native-svg';
+import SvgFlecheRetour from '../../assets/svg/flecheRetour';
+import { useNavigation } from 'expo-router';
 
 const IdentityTemplate = ({ svgSource, title }) => {
   const [gender, setGender] = useState(null);
@@ -12,6 +14,7 @@ const IdentityTemplate = ({ svgSource, title }) => {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -67,6 +70,9 @@ const IdentityTemplate = ({ svgSource, title }) => {
     <PaperProvider>
       <Container.BasicView style={styles.mainContainer}>
         <Container.BasicView style={styles.headerContainer}>
+          <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+            <SvgFlecheRetour />
+          </TouchableOpacity>
           <SvgXml xml={svgSource} style={styles.image} />
           <Text.Base style={styles.title}>{title}</Text.Base>
         </Container.BasicView>
@@ -123,14 +129,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    borderRadius: 20,
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    width: '90%',
+    width: '100%',
     padding: 15,
     backgroundColor: '#fff',
     elevation: 3,
@@ -159,6 +164,9 @@ const styles = StyleSheet.create({
     borderColor: '#7790ED',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  goBack: {
+    marginRight: 10,
   },
   percentage: {
     fontSize: 16,

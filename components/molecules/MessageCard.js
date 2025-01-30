@@ -1,13 +1,31 @@
 // components/molecules/MessageCard.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import {Text, Image} from '../atoms';
+import {Text, Image, Container} from '../atoms';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { doc, getDoc } from 'firebase/firestore';
+import { firestoreDB } from '@/config/firebase.config';
 
 const MessageCard = ({ room, auth, onPress }) => {
+  const [otherUserProfilePic, setOtherUserProfilePic] = useState("N/A");
+
   const otherUserId = room.users.find(uid => uid !== auth.currentUser.uid);
   const otherUserFullName = room.userFullName[room.users.indexOf(otherUserId)];
-  const otherUserProfilePic = room.otherUserProfilePic || "N/A"; 
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const otherUserDoc = await getDoc(doc(firestoreDB, "users", otherUserId));
+        if (otherUserDoc.exists()) {
+          setOtherUserProfilePic(otherUserDoc.data().profilePic || "N/A");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération du profil :", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [otherUserId]);
 
   const calculateElapsedTime = (timeStamp) => {
     if (!timeStamp) return "N/A";
@@ -31,18 +49,18 @@ const MessageCard = ({ room, auth, onPress }) => {
   };
 
   return (
-    <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', padding: 10 }}>
-      <View style={{ marginRight: 10 }}>
+    <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderBottomWidth: 1, borderBottomColor: '#ddd' }}>
+      <Container.BasicView style={{ marginRight: 10 }}>
         {otherUserProfilePic !== "N/A" ? (
           <Image.Base uri={otherUserProfilePic} />
         ) : (
           <FontAwesome5 name="users" size={24} color="#555" />
         )}
-      </View>
-      <View style={{ flex: 1 }}>
-        <Text.Base style={{ fontWeight: 'bold' }}>{otherUserFullName}</Text.Base>
-        <Text.Base>{room.lastMessage?.substring(0, 25)}{room.lastMessage?.length > 25 && '...'}</Text.Base>
-      </View>
+      </Container.BasicView>
+      <Container.BasicView style={{ flex: 1 }}>
+        <Text.Base style={{ fontWeight: 'bold', fontSize: 20 }}>{otherUserFullName}</Text.Base>
+        <Text.Base style={{fontSize: 16}}>{room.lastMessage?.substring(0, 25)}{room.lastMessage?.length > 25 && '...'}</Text.Base>
+      </Container.BasicView>
       <Text.Base style={{ marginLeft: 10 }}>{room.timeStamp ? calculateElapsedTime(room.timeStamp) : ''}</Text.Base>
     </TouchableOpacity>
   );
