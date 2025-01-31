@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, SafeAreaView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DeckSwiper from "react-native-deck-swiper";
-import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { firestoreDB, firebaseAuth } from '../../config/firebase.config';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SvgPlus from "../../assets/svg/plus";
@@ -111,6 +111,35 @@ const SwipeScreen = () => {
     }
   };
 
+  const simulateSaveSwipe = async () => {
+    if (swiperRef.current && cards.length > 0) {
+        const swipedUser = cards[0];
+
+        try {
+            const userSwipeSaveRef = doc(firestoreDB, "swipeSave", currentUser.id);
+            const userSwipeSaveSnap = await getDoc(userSwipeSaveRef);
+            let savedUsers = userSwipeSaveSnap.exists() ? userSwipeSaveSnap.data() : {};
+
+            if (savedUsers[swipedUser.id]) {
+                delete savedUsers[swipedUser.id];
+                console.log("Utilisateur supprimé !");
+            } else {
+                savedUsers[swipedUser.id] = {
+                    name: swipedUser.fullName || "",
+                    profilePic: swipedUser.profilePic || "",
+                };
+                console.log("Utilisateur enregistré !");
+            }
+
+            await setDoc(userSwipeSaveRef, savedUsers);
+        } catch (error) {
+            console.error("Erreur lors de l'enregistrement/suppression du swipe :", error);
+        }
+    }
+};
+
+  
+
   const renderCard = (userData) => {
     const profilePic = userData?.profilePic;
     const profilePic2 = userData?.profilePic2;
@@ -182,7 +211,7 @@ const SwipeScreen = () => {
 
 
         {/* Boutons fixés en bas */}
-        <SwipeCard.ActionButtonSwipe simulateSwipeLeft={simulateSwipeLeft} simulateSwipeRight={simulateSwipeRight} />
+        <SwipeCard.ActionButtonSwipe simulateSwipeLeft={simulateSwipeLeft} simulateSwipeRight={simulateSwipeRight} simulateSaveSwipe={simulateSaveSwipe} />
       </TouchableOpacity>
     );
   };

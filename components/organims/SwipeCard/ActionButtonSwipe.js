@@ -1,34 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Button } from '../../atoms';
 import SvgNop from "../../../assets/svg/nop";
 import SvgYes from "../../../assets/svg/yes";
 import SvgSave from "../../../assets/svg/save";
+import SvgSaveFull from "../../../assets/svg/saveFull";
 import SvgEclair from "../../../assets/svg/eclair";
 
+const ActionButtonSwipe = ({ simulateSwipeLeft, simulateSwipeRight, simulateSaveSwipe, swipedUserId }) => {
+    const [isSaved, setIsSaved] = useState(false);
 
-const ActionButtonSwipe = ({ simulateSwipeLeft,  simulateSwipeRight}) => {
+    useEffect(() => {
+        setIsSaved(swipedUserId ? true : false);
+    }, [swipedUserId]);
+
+    const handleSaveSwipe = async () => {
+        if (isSaved) {
+            setIsSaved(false);
+        } else {
+            setIsSaved(true);
+        }
+
+        await simulateSaveSwipe();
+    };
+
     return (
-        <Container.BasicView style={{
-            position: "absolute", 
-            bottom: 80,  
-            left: 0, 
-            right: 0, 
-            flexDirection: "row", 
-            justifyContent: "space-around", 
-            paddingBottom: 80, 
-          }}
-          >
-            <Button.SecondSwipe onPress={simulateSwipeLeft}>
-              <SvgSave />
+        <Container.BasicView
+            style={{
+                position: "absolute",
+                bottom: 80,
+                left: 0,
+                right: 0,
+                flexDirection: "row",
+                justifyContent: "space-around",
+                paddingBottom: 80,
+            }}
+        >
+            <Button.SecondSwipe onPress={handleSaveSwipe}>
+                {isSaved ? <SvgSaveFull /> : <SvgSave />}  
             </Button.SecondSwipe>
             <Button.Swipe onPress={simulateSwipeLeft}>
-              <SvgNop />
+                <SvgNop />
             </Button.Swipe>
             <Button.Swipe onPress={simulateSwipeRight}>
-              <SvgYes />
+                <SvgYes />
             </Button.Swipe>
             <Button.SecondSwipe onPress={simulateSwipeRight}>
-              <SvgEclair />
+                <SvgEclair />
             </Button.SecondSwipe>
         </Container.BasicView>
     );
