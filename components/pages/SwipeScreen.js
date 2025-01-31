@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, SafeAreaView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DeckSwiper from "react-native-deck-swiper";
-import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { firestoreDB, firebaseAuth } from '../../config/firebase.config';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SvgPlus from "../../assets/svg/plus";
@@ -47,35 +47,29 @@ const SwipeScreen = () => {
 
   useEffect(() => {
     if (currentUser) {
-      const fetchUsers = async () => {
-        try {
-          const currentUserSwipeDocRef = doc(firestoreDB, "userSwipe", currentUser.id);
-          const currentUserSwipeDocSnap = await getDoc(currentUserSwipeDocRef);
-  
-          const currentUserSwipedUsers = currentUserSwipeDocSnap.exists()
-            ? currentUserSwipeDocSnap.data()?.swipedUsers || []
-            : [];
-          const currentUserDislikedUsers = currentUserSwipeDocSnap.exists()
-            ? currentUserSwipeDocSnap.data()?.dislikedUsers || []
-            : [];
-  
+      const unsubscribe = onSnapshot(doc(firestoreDB, "userSwipe", currentUser.id), async (docSnap) => {
+        if (docSnap.exists()) {
+          const userSwipeData = docSnap.data();
+          const currentUserSwipedUsers = userSwipeData?.swipedUsers || [];
+          const currentUserDislikedUsers = userSwipeData?.dislikedUsers || [];
+
           const excludedUsers = [...currentUserSwipedUsers, ...currentUserDislikedUsers];
-  
+
           const usersCollection = collection(firestoreDB, "users");
           const usersSnapshot = await getDocs(usersCollection);
-  
+
           if (!usersSnapshot.empty) {
             const usersData = usersSnapshot.docs.map(doc => ({
               id: doc.id,
               ...doc.data(),
             }));
-  
+
             const filteredUsers = usersData.filter(user => {
               return user.id !== currentUser.id && !excludedUsers.includes(user.id);
             });
-  
+
             setCards(filteredUsers);
-  
+
             if (filteredUsers.length === 0) {
               setSwipedAll(true);
             } else {
@@ -86,14 +80,10 @@ const SwipeScreen = () => {
             setCards([]);
             setSwipedAll(true);
           }
-        } catch (error) {
-          console.error("Error fetching users:", error);
-          setCards([]);
-          setSwipedAll(false);
         }
-      };
-  
-      fetchUsers();
+      });
+
+      return () => unsubscribe();
     }
   }, [currentUser]);
   
@@ -122,13 +112,11 @@ const SwipeScreen = () => {
 
             if (savedUsers[swipedUser.id]) {
                 delete savedUsers[swipedUser.id];
-                console.log("Utilisateur supprimé !");
             } else {
                 savedUsers[swipedUser.id] = {
                     name: swipedUser.fullName || "",
                     profilePic: swipedUser.profilePic || "",
                 };
-                console.log("Utilisateur enregistré !");
             }
 
             await setDoc(userSwipeSaveRef, savedUsers);
@@ -177,7 +165,6 @@ const SwipeScreen = () => {
               location: citySearch,
               carac2: loisirs[0],
               carac3: loisirs[1],
-              date: "12/12/2021",
               bio: bio,
             })}
             style={{ 

@@ -14,5 +14,6 @@ import LikesTemplate from './LikesTemplate';
 import IdentityTemplate from './IdentityTemplate';
 import RythmePreferenceTemplate from './RythmePreferenceTemplate';
 import PrincipalCaractereTemplate from './PrincipalCaractereTemplate';
+import SaveTemplate from './SaveTemplate';
 
-export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate, IdentityTemplate, RythmePreferenceTemplate, PrincipalCaractereTemplate };
+export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate, IdentityTemplate, RythmePreferenceTemplate, PrincipalCaractereTemplate, SaveTemplate };

@@ -2,13 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen } from '@/components/pages';
+import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen, SaveScreen } from '@/components/pages';
 import SvgAccount from '@/assets/svg/account';
 import SvgAccountFull from '@/assets/svg/accountFull';
 import SvgMessage from '@/assets/svg/message';
 import SvgMessageFull from '@/assets/svg/messageFull';
 import SvgSwipe from '@/assets/svg/swipe';
 import SvgSwipeFull from '@/assets/svg/swipeFull';
+import SvgHistorique from '@/assets/svg/historique';
+import SvgHistoriqueFull from '@/assets/svg/historiqueFull';
 import { Container } from '@/components/atoms';
 
 const Tab = createBottomTabNavigator();
@@ -53,13 +55,13 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
       <Animated.View
         style={{
           position: 'absolute',
-          width: tabWidth - 60,
+          width: tabWidth - 40,
           height: 40,
           backgroundColor: '#7790ed',
           opacity: 0.3,
           borderRadius: 15,
-          bottom: 20,
-          left: 30,
+          bottom: 19,
+          left: 20,
           transform: [{ translateX }],
         }}
       />
@@ -78,6 +80,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
           >
+            {route.name === 'SaveScreen' && (focused ? <SvgHistoriqueFull /> : <SvgHistorique />)}
             {route.name === 'Swipe' && (focused ? <SvgSwipeFull /> : <SvgSwipe />)}
             {route.name === 'Messages' && (focused ? <SvgMessageFull /> : <SvgMessage />)}
             {route.name === 'Account' && (focused ? <SvgAccountFull /> : <SvgAccount />)}
@@ -90,7 +93,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }}>
+    <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }} initialRouteName="Swipe" >
+      <Tab.Screen name="SaveScreen" component={SaveScreen} />
       <Tab.Screen name="Swipe" component={SwipeStack} />
       <Tab.Screen name="Messages" component={HomeScreen} />
       <Tab.Screen name="Account" component={AccountStack} />
