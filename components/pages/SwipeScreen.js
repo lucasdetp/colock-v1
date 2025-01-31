@@ -47,29 +47,35 @@ const SwipeScreen = () => {
 
   useEffect(() => {
     if (currentUser) {
-      const unsubscribe = onSnapshot(doc(firestoreDB, "userSwipe", currentUser.id), async (docSnap) => {
-        if (docSnap.exists()) {
-          const userSwipeData = docSnap.data();
-          const currentUserSwipedUsers = userSwipeData?.swipedUsers || [];
-          const currentUserDislikedUsers = userSwipeData?.dislikedUsers || [];
-
+      const fetchUsers = async () => {
+        try {
+          const currentUserSwipeDocRef = doc(firestoreDB, "userSwipe", currentUser.id);
+          const currentUserSwipeDocSnap = await getDoc(currentUserSwipeDocRef);
+  
+          const currentUserSwipedUsers = currentUserSwipeDocSnap.exists()
+            ? currentUserSwipeDocSnap.data()?.swipedUsers || []
+            : [];
+          const currentUserDislikedUsers = currentUserSwipeDocSnap.exists()
+            ? currentUserSwipeDocSnap.data()?.dislikedUsers || []
+            : [];
+  
           const excludedUsers = [...currentUserSwipedUsers, ...currentUserDislikedUsers];
-
+  
           const usersCollection = collection(firestoreDB, "users");
           const usersSnapshot = await getDocs(usersCollection);
-
+  
           if (!usersSnapshot.empty) {
             const usersData = usersSnapshot.docs.map(doc => ({
               id: doc.id,
               ...doc.data(),
             }));
-
+  
             const filteredUsers = usersData.filter(user => {
               return user.id !== currentUser.id && !excludedUsers.includes(user.id);
             });
-
+  
             setCards(filteredUsers);
-
+  
             if (filteredUsers.length === 0) {
               setSwipedAll(true);
             } else {
@@ -80,10 +86,14 @@ const SwipeScreen = () => {
             setCards([]);
             setSwipedAll(true);
           }
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          setCards([]);
+          setSwipedAll(false);
         }
-      });
-
-      return () => unsubscribe();
+      };
+  
+      fetchUsers();
     }
   }, [currentUser]);
   
