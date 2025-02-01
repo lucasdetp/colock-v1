@@ -9,6 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SvgPlus from "../../assets/svg/plus";
 import { Container, Text} from '../atoms';
 import { SwipeCard } from "../organims";
+import { API_KEY } from '@env';
 
 const SwipeScreen = () => {
   const [cards, setCards] = useState([]);
@@ -45,53 +46,131 @@ const SwipeScreen = () => {
     return unsubscribe;
   }, [user]);
 
+
+  const getCoordinates = async (city) => {
+      if (!API_KEY) {
+        console.error("❌ La clé API est manquante !");
+        return null;
+      }
+      const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(city)}&key=${API_KEY}`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.results.length > 0) {
+          return {
+              lat: data.results[0].geometry.lat,
+              lon: data.results[0].geometry.lng
+          };
+      } else {
+          console.error("❌ Ville non trouvée :", city);
+          return null;
+      }
+  };
+
+  const haversineDistance = (coords1, coords2) => {
+    const R = 6378; // Rayon de la Terre en km
+    const dLat = (coords2.lat - coords1.lat) * (Math.PI / 180);
+    const dLon = (coords2.lon - coords1.lon) * (Math.PI / 180);
+
+    const a = 
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(coords1.lat * (Math.PI / 180)) * 
+        Math.cos(coords2.lat * (Math.PI / 180)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+
+
   useEffect(() => {
     if (currentUser) {
       const fetchUsers = async () => {
+        if (!currentUser) return;
+    
         try {
-          const currentUserSwipeDocRef = doc(firestoreDB, "userSwipe", currentUser.id);
-          const currentUserSwipeDocSnap = await getDoc(currentUserSwipeDocRef);
-  
-          const currentUserSwipedUsers = currentUserSwipeDocSnap.exists()
-            ? currentUserSwipeDocSnap.data()?.swipedUsers || []
-            : [];
-          const currentUserDislikedUsers = currentUserSwipeDocSnap.exists()
-            ? currentUserSwipeDocSnap.data()?.dislikedUsers || []
-            : [];
-  
-          const excludedUsers = [...currentUserSwipedUsers, ...currentUserDislikedUsers];
-  
-          const usersCollection = collection(firestoreDB, "users");
-          const usersSnapshot = await getDocs(usersCollection);
-  
-          if (!usersSnapshot.empty) {
-            const usersData = usersSnapshot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
-  
-            const filteredUsers = usersData.filter(user => {
-              return user.id !== currentUser.id && !excludedUsers.includes(user.id);
-            });
-  
-            setCards(filteredUsers);
-  
-            if (filteredUsers.length === 0) {
-              setSwipedAll(true);
-            } else {
-              setSwipedAll(false);
+            const userRef = doc(firestoreDB, "users", currentUser.id);
+            const userSnap = await getDoc(userRef);
+    
+            if (!userSnap.exists()) {
+                console.error("Utilisateur introuvable");
+                return;
             }
-          } else {
-            console.warn("No users found in Firestore.");
+    
+            const userData = userSnap.data();
+            const { citySearch, loisirs = [], lookingFor } = userData;
+    
+            const currentUserCoords = await getCoordinates(citySearch);
+            if (!currentUserCoords) return;
+    
+            const swipeDocRef = doc(firestoreDB, "userSwipe", currentUser.id);
+            const swipeSnap = await getDoc(swipeDocRef);
+            const swipedUsers = swipeSnap.exists() ? swipeSnap.data().swipedUsers || [] : [];
+            const dislikedUsers = swipeSnap.exists() ? swipeSnap.data().dislikedUsers || [] : [];
+            const excludedUsers = [...swipedUsers, ...dislikedUsers];
+    
+            const querySnapshot = await getDocs(collection(firestoreDB, "users"));
+            
+            let usersData = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+    
+            const countCommonLoisirs = (userLoisirs = []) => {
+                if (!Array.isArray(userLoisirs)) return 0;
+    
+                const normalizedLoisirs = loisirs.map(l => l.trim().toLowerCase());
+                const normalizedUserLoisirs = userLoisirs.map(l => l.trim().toLowerCase());
+    
+                return normalizedUserLoisirs.filter(loisir => normalizedLoisirs.includes(loisir)).length;
+            };
+          
+            let perfectMatch = [];
+            let mediumMatch = [];
+            let lightMatch = [];
+    
+            for (let user of usersData) {
+                if (user.id === currentUser.id || excludedUsers.includes(user.id)) continue;
+    
+                const userLoisirs = user.loisirs || user.traitsCaracterePrincipaux || [];
+                const commonLoisirs = countCommonLoisirs(userLoisirs);
+    
+                const userCoords = await getCoordinates(user.citySearch);
+                if (!userCoords) continue;
+    
+                const distance = haversineDistance(currentUserCoords, userCoords);
+                if (distance > 100) continue; 
+    
+                if (lookingFor === "Peu importe" || user.gender === lookingFor) {
+                    if (commonLoisirs >= 3) {
+                        perfectMatch.push(user);
+                    } else if (commonLoisirs === 2) {
+                        mediumMatch.push(user);
+                    } else if (commonLoisirs === 1) {
+                        lightMatch.push(user);
+                    }
+                }
+            }
+    
+            const finalUsers = perfectMatch.length > 0 
+                ? perfectMatch 
+                : mediumMatch.length > 0 
+                    ? mediumMatch 
+                    : lightMatch.length > 0
+                        ? lightMatch
+                        : usersData.filter(user => user.id !== currentUser.id && !excludedUsers.includes(user.id));
+    
+            setCards(finalUsers);
+            setSwipedAll(finalUsers.length === 0);
+    
+        } catch (error) {
+            console.error("❌ Erreur lors du chargement des utilisateurs :", error);
             setCards([]);
             setSwipedAll(true);
-          }
-        } catch (error) {
-          console.error("Error fetching users:", error);
-          setCards([]);
-          setSwipedAll(false);
         }
-      };
+    };
   
       fetchUsers();
     }
