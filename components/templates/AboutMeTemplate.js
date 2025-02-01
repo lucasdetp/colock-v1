@@ -176,9 +176,6 @@ const AboutMe = ({ svgSource, title }) => {
             </Container.BasicView>
           )}
 
-          {/* Espacement entre les boutons */}
-          <Container.BasicView style={styles.spacer} />
-
           {/* Bouton pour les informations de paiement */}
           <TouchableOpacity
             style={[styles.button, showPaymentForm && styles.buttonActive]}
@@ -295,20 +292,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 5,
     alignItems: 'left',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E1EEFE',
   },
   buttonActive: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff',
   },
   buttonText: {
-    color: '#6D6D6D',
+    color: '#3A3A3A',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -322,14 +318,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   form: {
-    marginTop: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#F8F9FA',
     padding: 10,
     position: 'relative',
-    top: -15,
-    borderBottomEndRadius: 15,
-    borderBottomStartRadius: 15,
-    shadowColor: 'rgba(0, 0, 0, 0.25)', 
+    shadowColor: 'rgba(0, 0, 0, 0.1)', 
     shadowOffset: { width: 0, height: 0 }, 
     shadowOpacity: 1,
     shadowRadius: 6,
