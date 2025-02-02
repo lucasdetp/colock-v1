@@ -1,7 +1,7 @@
 // app/navigator/AppNavigator.js
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, RegisterScreen, AddPictureScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen } from '@/components/pages'; 
+import { LoginScreen, RegisterScreen, AddPictureScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen } from '@/components/pages'; 
 import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +25,11 @@ const AppNavigator = ({ isRegistered, isAddPicture }) => {
           <Stack.Screen name="IdentityScreen" component={IdentityScreen} />
           <Stack.Screen name="RythmePreferenceScreen" component={RythmePreferenceScreen} />
           <Stack.Screen name="PrincipalCaractereScreen" component={PrincipalCaractereScreen} />
+          <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="WhenBudgetScreen" component={WhenBudgetScreen} />
+          <Stack.Screen name="WhereEditScreen" component={WhereEditScreen} />
+          <Stack.Screen name="ColocScreen" component={ColocScreen} />
+          <Stack.Screen name="GoodOrNotScreen" component={GoodOrNotScreen} />
         </>
       ) : (
         <>

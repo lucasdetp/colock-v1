@@ -16,5 +16,10 @@ import IdentityScreen from './IdentityScreen';
 import RythmePreferenceScreen from './RythmePreferenceScreen';
 import PrincipalCaractereScreen from './PrincipalCaractereScreen';
 import SaveScreen from './SaveScreen';
+import SearchScreen from './SearchScreen';
+import WhenBudgetScreen from './WhenBudgetScreen';
+import WhereEditScreen from './WhereEditScreen';
+import ColocScreen from './ColocScreen';
+import GoodOrNotScreen from './GoodOrNotScreen';
 
-export { RegisterScreen, LoginScreen, AddPictureScreen, HomeScreen, SwipeScreen, AccountScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen };
+export { RegisterScreen, LoginScreen, AddPictureScreen, HomeScreen, SwipeScreen, AccountScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import { fleche } from '../../../assets';
+import SvgFlecheSuivant from '../../../assets/svg/flecheSuivant';
 const InfoBox = ({ svgSource, text, percentage, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
@@ -16,7 +16,7 @@ const InfoBox = ({ svgSource, text, percentage, onPress }) => {
           <Text style={styles.percentage}>{percentage}%</Text>
         </View>
       )}
-      <Image source={fleche} style={styles.logo} resizeMode="contain" />
+      <SvgFlecheSuivant />
     </TouchableOpacity>
   );
 };
@@ -27,12 +27,17 @@ const styles = StyleSheet.create({
     width: '95%',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 20,
     marginVertical: 5,
     marginBottom: 15,
-    backgroundColor: '#f7f7f7',
-    borderRadius: 10,
-    elevation: 3,
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    shadowColor: 'rgba(0, 0, 0, 0.10)', 
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 6,
+    // Elevation for Android
+    elevation: 5,
   },
   image: {
     marginRight: 10,
