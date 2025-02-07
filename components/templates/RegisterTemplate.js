@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import {RegistrationForm} from '../organims';
 import { Text } from '../atoms';
+import { Container } from '../atoms';
+import SvgLogoHome from '@/assets/svg/logoHome';
 
 const RegisterTemplate = ({
   logo,
@@ -20,7 +22,9 @@ const RegisterTemplate = ({
 }) => {
   return (
     <View style={styles.container}>
-       <Text.Base style={styles.title}>Inscription</Text.Base>
+       <Container.BasicView style={styles.logo}>
+        <SvgLogoHome />
+      </Container.BasicView>
       <RegistrationForm
         name={name}
         setName={setName}
@@ -54,8 +58,6 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   logo: {
-    width: 80,
-    height: 80,
     marginBottom: 20,
   },
   linkText: {

@@ -154,14 +154,26 @@ const SwipeScreen = () => {
                 }
             }
     
+            const remainingUsers = await Promise.all(usersData.map(async (user) => {
+                if (user.id === currentUser.id || excludedUsers.includes(user.id)) return null;
+    
+                const userCoords = await getCoordinates(user.citySearch);
+                if (!userCoords) return null;
+    
+                const distance = haversineDistance(currentUserCoords, userCoords);
+                return distance <= 100 ? user : null;
+            }));
+    
+            const filteredRemainingUsers = remainingUsers.filter(user => user !== null);
+    
             const finalUsers = perfectMatch.length > 0 
                 ? perfectMatch 
                 : mediumMatch.length > 0 
                     ? mediumMatch 
                     : lightMatch.length > 0
                         ? lightMatch
-                        : usersData.filter(user => user.id !== currentUser.id && !excludedUsers.includes(user.id));
-    
+                        : (filteredRemainingUsers.length > 0 ? filteredRemainingUsers : usersData.filter(user => user.id !== currentUser.id && !excludedUsers.includes(user.id)));
+
             setCards(finalUsers);
             setSwipedAll(finalUsers.length === 0);
     

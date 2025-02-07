@@ -10,22 +10,21 @@ const LoginForm = ({ email, setEmail, password, setPassword, handleLogin, alert,
       {/* Alert */}
       {alert && <Text.Base style={styles.alertText}>{alertMessage}</Text.Base>}
 
-      <Text.Base style={styles.name}>Email *</Text.Base>
+      <Text.Base style={styles.name}>Email</Text.Base>
       {/* Email Input */}
       <BaseTextInput
-        placeholder="Email"
+        placeholder="p.nom@domaine.com"
         onChangeText={setEmail}
         secureTextEntry={false}
       />
 
-      <Text.Base style={styles.name}>Mot de passe *</Text.Base>
+      <Text.Base style={styles.name}>Mot de passe</Text.Base>
       {/* Password Input */}
       <BaseTextInput
-        placeholder="Mot de passe"
+        placeholder="Saisissez le mot de passe"
         onChangeText={setPassword}
         secureTextEntry={true}
       />
-      <Text.Base style={styles.desc}>Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</Text.Base>
 
       <TouchableOpacity onPress={handleLogin} style={styles.forgetPasswordButton}>
         <Text.Base style={styles.buttonTextForget}>Mot de passe oublié</Text.Base>
@@ -79,6 +78,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 12,
     alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#C9DDFC',
   },
   buttonText: {
     color: '#3A3A3A',

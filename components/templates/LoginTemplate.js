@@ -1,12 +1,16 @@
-// components/templates/LoginTemplate.js
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import {LoginForm} from '../organims';
-import { Text } from '../atoms'
+import { LoginForm } from '../organims';
+import { Container, Text } from '../atoms';
+import SvgLogoHome from '@/assets/svg/logoHome';
+
 const LoginTemplate = ({ logo, email, setEmail, password, setPassword, handleLogin, alert, alertMessage, navigateToRegister }) => {
   return (
-    <View style={styles.container}>
-      <Text.Base style={styles.title}>Connexion</Text.Base>
+    <Container.BasicView style={styles.container}>
+      <Container.BasicView style={styles.logo}>
+        <SvgLogoHome />
+      </Container.BasicView>
+      
       <LoginForm
         email={email}
         setEmail={setEmail}
@@ -20,7 +24,7 @@ const LoginTemplate = ({ logo, email, setEmail, password, setPassword, handleLog
       <TouchableOpacity onPress={navigateToRegister}>
         <Text.Base style={styles.linkText}>Inscription</Text.Base>
       </TouchableOpacity>
-    </View>
+    </Container.BasicView>
   );
 };
 
@@ -33,8 +37,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 64,
-    height: 64,
+    marginBottom: 20,
   },
   linkText: {
     marginTop: 20,
@@ -45,7 +48,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    bottom: 150,
   },
 });
 

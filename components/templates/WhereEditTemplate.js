@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, StyleSheet, SafeAreaView, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Container, Text, TextInput } from '../atoms';
@@ -9,13 +9,13 @@ import SvgFlecheRetour from '../../assets/svg/flecheRetour';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-const WhereEditTemplate = ({ navigateToNextStep, saveCityData, headerData }) => {
+const WhereEditTemplate = ({ headerData }) => {
   const [location, setLocation] = useState(null);
   const [city, setCity] = useState('');
-  const [currentCity, setCurrentCity] = useState('');
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCity, setSelectedCity] = useState('');
   const navigation = useNavigation();
 
+  // Charger la ville de l'utilisateur depuis Firebase
   useEffect(() => {
     const fetchUserCity = async () => {
       const userId = firebaseAuth.currentUser.uid;
@@ -24,14 +24,15 @@ const WhereEditTemplate = ({ navigateToNextStep, saveCityData, headerData }) => 
       if (userDoc.exists()) {
         const data = userDoc.data();
         if (data.citySearch) {
-          setCurrentCity(data.citySearch);
-          setCity(data.citySearch);
+          setCity(data.citySearch); // initialisation de `city`
+          setSelectedCity(data.citySearch); // initialisation de `selectedCity`
         }
       }
     };
     
     fetchUserCity();
 
+    // Récupérer la localisation actuelle
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -43,36 +44,41 @@ const WhereEditTemplate = ({ navigateToNextStep, saveCityData, headerData }) => 
     })();
   }, []);
 
+  // Lorsque l'on clique sur la carte
   const handleMapPress = async (event) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
     try {
       let [address] = await Location.reverseGeocodeAsync({ latitude, longitude });
 
-      if (address && address.city) {
-        setCity(address.city);
-        setSelectedCity(address.city);
+      if (address?.city) {
+        setSelectedCity(address.city); // Mise à jour sans sauvegarde immédiate
+        setCity(address.city); // Mettre à jour également le champ de texte
       } else {
+        setSelectedCity('');
         setCity('Ville non trouvée');
-        setSelectedCity('Ville non trouvée');
       }
     } catch (error) {
       console.error('Erreur lors de la récupération de la ville:', error);
     }
   };
 
+  // Sauvegarder la ville sélectionnée
   const handleSaveCity = async () => {
-    const userId = firebaseAuth.currentUser.uid;
-    const cityToSave = selectedCity || city;
+    if (!selectedCity) return; // Ne sauvegarde que si une ville a été sélectionnée
 
+    const userId = firebaseAuth.currentUser.uid;
     try {
-      await setDoc(
-        doc(firestoreDB, 'users', userId),
-        { citySearch: cityToSave },
-        { merge: true }
-      );
+      await setDoc(doc(firestoreDB, 'users', userId), { citySearch: selectedCity }, { merge: true });
+      console.log('✅ Ville enregistrée:', selectedCity);
     } catch (error) {
-      console.error('Erreur lors de la mise à jour de la ville:', error);
+      console.error('❌ Erreur lors de la mise à jour de la ville:', error);
     }
+  };
+
+  // Mettre à jour `selectedCity` en même temps que `city` quand l'utilisateur écrit
+  const handleCityChange = (text) => {
+    setCity(text);
+    setSelectedCity(text); // Mettre à jour aussi `selectedCity`
   };
 
   return (
@@ -87,14 +93,12 @@ const WhereEditTemplate = ({ navigateToNextStep, saveCityData, headerData }) => 
 
       <Text.Base style={styles.checkboxText}>Ville, code postal</Text.Base>
 
+      {/* Input de la ville */}
       <TextInput.City
         style={styles.input}
         placeholder="Saisissez un nom de ville, un code postal..."
-        value={city || currentCity}
-        onChangeText={(text) => {
-          setCity(text);
-          saveCityData(text);
-        }}
+        value={city}
+        onChangeText={handleCityChange} // Met à jour `selectedCity` et `city`
       />
 
       {location && (
@@ -118,6 +122,7 @@ const WhereEditTemplate = ({ navigateToNextStep, saveCityData, headerData }) => 
         </MapView>
       )}
 
+      {/* Bouton pour sauvegarder la ville */}
       <TouchableOpacity onPress={handleSaveCity} style={styles.button}>
         <Text.Base style={styles.buttonText}>Sélectionner cette ville</Text.Base>
       </TouchableOpacity>

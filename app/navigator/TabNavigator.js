@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen, SaveScreen } from '@/components/pages';
+import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen, SaveScreen, NosFormulesScreen } from '@/components/pages';
 import SvgAccount from '@/assets/svg/account';
 import SvgAccountFull from '@/assets/svg/accountFull';
 import SvgMessage from '@/assets/svg/message';
@@ -11,6 +11,8 @@ import SvgSwipe from '@/assets/svg/swipe';
 import SvgSwipeFull from '@/assets/svg/swipeFull';
 import SvgHistorique from '@/assets/svg/historique';
 import SvgHistoriqueFull from '@/assets/svg/historiqueFull';
+import SvgFormules from '@/assets/svg/formules';
+import SvgFormulesFull from '@/assets/svg/formulesFull';
 import { Container } from '@/components/atoms';
 
 const Tab = createBottomTabNavigator();
@@ -84,6 +86,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             {route.name === 'Swipe' && (focused ? <SvgSwipeFull /> : <SvgSwipe />)}
             {route.name === 'Messages' && (focused ? <SvgMessageFull /> : <SvgMessage />)}
             {route.name === 'Account' && (focused ? <SvgAccountFull /> : <SvgAccount />)}
+            {route.name === 'NosFormules' && (focused ? <SvgFormulesFull /> : <SvgFormules />)}
           </TouchableOpacity>
         );
       })}
@@ -98,6 +101,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Swipe" component={SwipeStack} />
       <Tab.Screen name="Messages" component={HomeScreen} />
       <Tab.Screen name="Account" component={AccountStack} />
+      <Tab.Screen name="NosFormules" component={NosFormulesScreen} />
     </Tab.Navigator>
   );
 };
