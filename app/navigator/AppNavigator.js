@@ -1,12 +1,43 @@
-// app/navigator/AppNavigator.js
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Animated } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoginScreen, RegisterScreen, AddPictureScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen } from '@/components/pages'; 
+import { 
+  LoginScreen, RegisterScreen, AddPictureScreen, ChatScreen, AboutMeScreen, 
+  AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, 
+  LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, 
+  SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, 
+  GoodOrNotScreen, LoadScreen 
+} from '@/components/pages'; 
 import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigator = ({ isRegistered, isAddPicture }) => {
+const AppNavigator = ({ isRegistered }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setIsLoading(false);
+      });
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [fadeAnim]);
+
+  if (isLoading) {
+    return (
+      <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+        <LoadScreen />
+      </Animated.View>
+    );
+  }
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isRegistered ? (

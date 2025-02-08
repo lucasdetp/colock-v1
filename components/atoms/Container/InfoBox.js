@@ -1,20 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import SvgFlecheSuivant from '../../../assets/svg/flecheSuivant';
+import { Container, Text } from '../../atoms';
 const InfoBox = ({ svgSource, text, percentage, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       {svgSource && <SvgXml xml={svgSource} style={styles.image} />}
 
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>{text}</Text>
-      </View>
+      <Container.BasicView style={styles.textContainer}>
+        <Text.Base style={styles.text}>{text}</Text.Base>
+      </Container.BasicView>
 
       {(percentage !== undefined) && (
-        <View style={styles.percentageArrowContainer}>
-          <Text style={styles.percentage}>{percentage}%</Text>
-        </View>
+        <Container.BasicView style={styles.percentageArrowContainer}>
+          <Text.Base style={styles.percentage}>{percentage}%</Text.Base>
+        </Container.BasicView>
       )}
       <SvgFlecheSuivant />
     </TouchableOpacity>

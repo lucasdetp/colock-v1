@@ -10,7 +10,7 @@ const ThreeSmallBoxes = ({ boxImages = [] }) => {
           key={index}
           svgSource={image.svg1 || image.svg2 || image.svg3}
           text={image.text1 || image.text2 || image.text3}
-          style={[styles.smallBox, index === 1 && styles.middleBox]} // Appliquer le style pour la boîte du milieu
+          style={[styles.smallBox && styles.middleBox]} // Appliquer le style pour la boîte du milieu
         />
       ))}
     </Container.BasicView>
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
     marginTop: 15,
+    gap: 10,
   },
   smallBox: {
     flex: 1,

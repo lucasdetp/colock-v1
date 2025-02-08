@@ -22,5 +22,6 @@ import WhereEditScreen from './WhereEditScreen';
 import ColocScreen from './ColocScreen';
 import GoodOrNotScreen from './GoodOrNotScreen';
 import NosFormulesScreen from './NosFormulesScreen';
+import LoadScreen from './LoadScreen';
 
-export { RegisterScreen, LoginScreen, AddPictureScreen, HomeScreen, SwipeScreen, AccountScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen, NosFormulesScreen };
+export { RegisterScreen, LoginScreen, AddPictureScreen, HomeScreen, SwipeScreen, AccountScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen, NosFormulesScreen, LoadScreen };

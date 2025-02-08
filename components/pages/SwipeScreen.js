@@ -9,7 +9,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SvgPlus from "../../assets/svg/plus";
 import { Container, Text} from '../atoms';
 import { SwipeCard } from "../organims";
-import { API_KEY } from '@env';
 
 const SwipeScreen = () => {
   const [cards, setCards] = useState([]);
@@ -48,11 +47,11 @@ const SwipeScreen = () => {
 
 
   const getCoordinates = async (city) => {
-      if (!API_KEY) {
+      if (!process.env.EXPO_PUBLIC_API_KEY) {
         console.error("❌ La clé API est manquante !");
         return null;
       }
-      const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(city)}&key=${API_KEY}`;
+      const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(city)}&key=${process.env.EXPO_PUBLIC_API_KEY}`;
 
       const response = await fetch(url);
       const data = await response.json();
