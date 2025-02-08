@@ -6,7 +6,11 @@ import {
   AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, 
   LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, 
   SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, 
-  GoodOrNotScreen, LoadScreen 
+  GoodOrNotScreen, LoadScreen, 
+  NewAboutMeScreen,
+  UserInfoScreen,
+  PaymentInfoScreen,
+  UserPhotosScreen
 } from '@/components/pages'; 
 import TabNavigator from './TabNavigator';
 import { LoaderProvider } from '@/context/LoaderContext';
@@ -63,6 +67,10 @@ const AppNavigator = ({ isRegistered }) => {
           <Stack.Screen name="WhereEditScreen" component={WhereEditScreen} />
           <Stack.Screen name="ColocScreen" component={ColocScreen} />
           <Stack.Screen name="GoodOrNotScreen" component={GoodOrNotScreen} />
+          <Stack.Screen name="NewAboutMeScreen" component={NewAboutMeScreen} />
+          <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
+          <Stack.Screen name="PaymentInfoScreen" component={PaymentInfoScreen} />
+          <Stack.Screen name="UserPhotosScreen" component={UserPhotosScreen} />
         </>
       ) : (
         <>

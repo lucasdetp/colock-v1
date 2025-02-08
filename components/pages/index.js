@@ -23,5 +23,9 @@ import ColocScreen from './ColocScreen';
 import GoodOrNotScreen from './GoodOrNotScreen';
 import NosFormulesScreen from './NosFormulesScreen';
 import LoadScreen from './LoadScreen';
+import NewAboutMeScreen from './NewAboutMeScreen';
+import UserInfoScreen from './UserInfoScreen';
+import PaymentInfoScreen from './PaymentInfoScreen';
+import UserPhotosScreen from './UserPhotosScreen';
 
-export { RegisterScreen, LoginScreen, AddPictureScreen, HomeScreen, SwipeScreen, AccountScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen, NosFormulesScreen, LoadScreen };
+export { RegisterScreen, LoginScreen, AddPictureScreen, HomeScreen, SwipeScreen, AccountScreen, ChatScreen, AboutMeScreen, AboutMeScreen2, SwipePlusScreen, WelcomeScreen, WhoScreen, WhereScreen, LikesScreen, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SaveScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen, NosFormulesScreen, LoadScreen, NewAboutMeScreen, UserInfoScreen, PaymentInfoScreen, UserPhotosScreen };

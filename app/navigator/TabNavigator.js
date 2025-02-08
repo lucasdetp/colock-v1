@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen, SaveScreen, NosFormulesScreen } from '@/components/pages';
+import { HomeScreen, SwipeScreen, AccountScreen, AboutMeScreen, AboutMeScreen2, IdentityScreen, RythmePreferenceScreen, PrincipalCaractereScreen, SwipePlusScreen, SaveScreen, NosFormulesScreen, UserPhotosScreen, UserInfoScreen, PaymentInfoScreen, NewAboutMeScreen, SearchScreen, WhenBudgetScreen, WhereEditScreen, ColocScreen, GoodOrNotScreen } from '@/components/pages';
 import SvgAccount from '@/assets/svg/account';
 import SvgAccountFull from '@/assets/svg/accountFull';
 import SvgMessage from '@/assets/svg/message';
@@ -25,9 +25,19 @@ const AccountStack = () => {
       <Stack.Screen name="AccountMain" component={AccountScreen} />
       <Stack.Screen name="AboutMeScreen" component={AboutMeScreen} />
       <Stack.Screen name="AboutMeScreen2" component={AboutMeScreen2} />
+      <Stack.Screen name="NewAboutMeScreen" component={NewAboutMeScreen} />
       <Stack.Screen name="IdentityScreen" component={IdentityScreen} />
       <Stack.Screen name="RythmePreferenceScreen" component={RythmePreferenceScreen} />
       <Stack.Screen name="PrincipalCaractereScreen" component={PrincipalCaractereScreen} />
+      <Stack.Screen name="UserPhotosScreen" component={UserPhotosScreen} />
+      <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
+      <Stack.Screen name="PaymentInfoScreen" component={PaymentInfoScreen} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="WhenBudgetScreen" component={WhenBudgetScreen} />
+      <Stack.Screen name="WhereEditScreen" component={WhereEditScreen} />
+      <Stack.Screen name="ColocScreen" component={ColocScreen} />
+      <Stack.Screen name="GoodOrNotScreen" component={GoodOrNotScreen} />
+
     </Stack.Navigator>
   );
 };

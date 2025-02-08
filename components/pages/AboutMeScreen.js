@@ -10,8 +10,7 @@ const aboutMeData = [
         </svg>
     `,
     title: 'Mes informations personnelles',
-    percentage: 80,
-  }
+  },
 ];
 
 const AboutMeScreen = () => {

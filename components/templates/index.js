@@ -20,5 +20,8 @@ import WhenBudgetTemplate from './WhenBudgetTemplate';
 import ColocTemplate from './ColocTemplate';
 import GoodOrNotTemplate from './GoodOrNotTemplate';
 import NosFormulesTemplate from './NosFormulesTemplate';
+import UserInfoTemplate from './UserInfoTemplate';
+import PaymentInfoTemplate from './PaymentInfoTemplate';
+import UserPhotosTemplate from './UserPhotosTemplate';
 
-export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate, IdentityTemplate, RythmePreferenceTemplate, PrincipalCaractereTemplate, SaveTemplate, SearchTemplate, WhenBudgetTemplate, ColocTemplate, GoodOrNotTemplate, NosFormulesTemplate };
+export { RegisterTemplate, LoginTemplate, AddPictureTemplate, HomeTemplate, SwipeTemplate, ChatTemplate, AccountScreenTemplate, AboutMeTemplate, AboutMe2Template, WelcomeTemplate, WhoTemplate, WhereTemplate, LikesTemplate, IdentityTemplate, RythmePreferenceTemplate, PrincipalCaractereTemplate, SaveTemplate, SearchTemplate, WhenBudgetTemplate, ColocTemplate, GoodOrNotTemplate, NosFormulesTemplate, UserInfoTemplate, PaymentInfoTemplate, UserPhotosTemplate };
