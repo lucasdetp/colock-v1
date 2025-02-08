@@ -9,6 +9,7 @@ import {
   GoodOrNotScreen, LoadScreen 
 } from '@/components/pages'; 
 import TabNavigator from './TabNavigator';
+import { LoaderProvider } from '@/context/LoaderContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ const AppNavigator = ({ isRegistered }) => {
   }
 
   return (
+    <LoaderProvider>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isRegistered ? (
         <>
@@ -69,6 +71,7 @@ const AppNavigator = ({ isRegistered }) => {
         </>
       )}
     </Stack.Navigator>
+    </LoaderProvider>
   );
 };
 

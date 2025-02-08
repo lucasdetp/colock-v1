@@ -33,24 +33,24 @@ const NosFormulesTemplate = () => {
       {/* Card avec SVG et texte */}
       <Container.BasicView style={styles.infoBox}>
         
-        <View style={styles.svgContainer}>
+        <Container.BasicView style={styles.svgContainer}>
           <SvgLogo style={styles.icon} />
           <SvgBoosts style={styles.icon} />
-        </View>
+        </Container.BasicView>
 
         <Text.Base style={styles.infoText}>
           Offre hebdomadaire, fonctionnalités supplémentaires :
         </Text.Base>
 
         {/* Liste des fonctionnalités avec bullet points */}
-        <View style={styles.listContainer}>
+        <Container.BasicView style={styles.listContainer}>
           {features.map((feature, index) => (
-            <View key={index} style={styles.listItem}>
+            <Container.BasicView key={index} style={styles.listItem}>
               <Text.Base style={styles.bullet}>•</Text.Base>
               <Text.Base style={styles.listText}>{feature}</Text.Base>
-            </View>
+            </Container.BasicView>
           ))}
-        </View>
+        </Container.BasicView>
 
         <Text.Base style={styles.infoText}>
           {"\n"}Le tout pour 9,90€ seulement !
@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
-    padding: 20,
   },
   header: {
     flexDirection: 'row',

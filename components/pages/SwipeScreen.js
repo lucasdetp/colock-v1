@@ -9,9 +9,11 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SvgPlus from "../../assets/svg/plus";
 import { Container, Text} from '../atoms';
 import { SwipeCard } from "../organims";
+import { useLoader } from "@/context/LoaderContext";
 
 const SwipeScreen = () => {
   const [cards, setCards] = useState([]);
+  const { setLoading } = useLoader();
   const [currentUser, setCurrentUser] = useState(null);
   const auth = getAuth();
   const [swipedAll, setSwipedAll] = useState(false);
@@ -20,6 +22,8 @@ const SwipeScreen = () => {
   const user = firebaseAuth.currentUser;
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setLoading(true); // loader
+      setTimeout(() => setLoading(false), 3000); // loader 3s 
       if (user) {
         try {
           const userDocRef = doc(firestoreDB, "users", user.uid);
