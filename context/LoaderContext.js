@@ -1,10 +1,9 @@
-import React, { createContext, useState, useContext } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { View, StyleSheet, Animated } from "react-native";
+import SvgFavIcon from "../assets/svg/favicon";
 
-// Création du contexte
 const LoaderContext = createContext();
 
-// Provider pour englober toute l'app
 export const LoaderProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
@@ -16,15 +15,39 @@ export const LoaderProvider = ({ children }) => {
   );
 };
 
-// Hook personnalisé pour activer/désactiver le loader
 export const useLoader = () => useContext(LoaderContext);
 
-// Composant Loader
-const Loader = () => (
-  <View style={styles.overlay}>
-    <ActivityIndicator size="large" color="#7790ED" />
-  </View>
-);
+const Loader = () => {
+  const zoomAnim = new Animated.Value(1);
+
+  useEffect(() => {
+    const loopAnimation = () => {
+      Animated.sequence([
+        Animated.timing(zoomAnim, {
+          toValue: 2,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(zoomAnim, {
+          toValue: 0.5,
+          duration: 900,
+          useNativeDriver: true,
+        })
+      ]).start(() => loopAnimation());
+    };
+
+    loopAnimation();
+
+  }, [zoomAnim]);
+
+  return (
+    <View style={styles.overlay}>
+      <Animated.View style={{ transform: [{ scale: zoomAnim }] }}>
+        <SvgFavIcon width={100} height={100} />
+      </Animated.View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   overlay: {
@@ -33,7 +56,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(236, 236, 236, 0.84)",
+    blurRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     zIndex: 1000,

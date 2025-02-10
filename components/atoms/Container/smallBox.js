@@ -19,7 +19,7 @@ const SmallBox = ({ svgSource, text, style }) => {
 const styles = StyleSheet.create({
   container: {
     width: 90,
-    height: 90,
+    height: 105,
     backgroundColor: '#fff',
     borderRadius: 15,
     shadowColor: '#000',
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   text: {
-    fontSize: 13,
+    fontSize: 11,
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#3A3A3A',

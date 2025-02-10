@@ -23,7 +23,7 @@ const SwipeScreen = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true); // loader
-      setTimeout(() => setLoading(false), 3000); // loader 3s 
+      setTimeout(() => setLoading(false), 4000); // loader 3s 
       if (user) {
         try {
           const userDocRef = doc(firestoreDB, "users", user.uid);

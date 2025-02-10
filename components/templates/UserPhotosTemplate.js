@@ -242,10 +242,8 @@ const styles = StyleSheet.create({
   editIcon: {
     position: 'absolute',
     bottom: 10,
-    right: 10,
-    backgroundColor: '#fff',
+    right: 5,
     borderRadius: 20,
-    padding: 5,
     elevation: 3,
   },
   editIconSvg: {
