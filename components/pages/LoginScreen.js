@@ -1,6 +1,11 @@
-// components/pages/LoginScreen.js
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import LoginTemplate from '../templates/LoginTemplate';
 import { Logo } from '../../assets/index';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -26,24 +31,29 @@ const LoginScreen = () => {
 
       if (docSnap.exists()) {
         dispatch(SET_USER(docSnap.data()));
-        navigation.navigate('Main'); 
+        navigation.navigate('Main');
       }
     } catch (err) {
-      console.error("Erreur : ", err.message);
+      console.error('Erreur : ', err.message);
       setAlert(true);
-      setAlertMessage(err.message.includes('wrong-password')
-        ? 'Mot de passe incorrect'
-        : err.message.includes('user-not-found')
+      setAlertMessage(
+        err.message.includes('wrong-password')
+          ? 'Mot de passe incorrect'
+          : err.message.includes('user-not-found')
           ? 'Utilisateur non trouvé'
-          : 'Email ou mot de passe incorrect');
-      
+          : 'Email ou mot de passe incorrect'
+      );
+
       setTimeout(() => setAlert(false), 5000);
     }
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
         <LoginTemplate
           logo={Logo}
           email={email}
@@ -53,10 +63,10 @@ const LoginScreen = () => {
           handleLogin={handleLogin}
           alert={alert}
           alertMessage={alertMessage}
-          navigateToRegister={() => navigation.navigate('Register')} 
+          navigateToRegister={() => navigation.navigate('Register')}
         />
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 

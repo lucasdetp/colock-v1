@@ -27,10 +27,12 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "entryPoint": "./app/index.js", 
+    "entryPoint": "./app/index.js",
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-video",
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true

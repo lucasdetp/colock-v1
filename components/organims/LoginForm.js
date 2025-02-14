@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   forgetPasswordButton: {
-    marginTop: 35,
+    marginTop: 5,
   },
   buttonTextForget: {
     color: '#3A3A3A',
