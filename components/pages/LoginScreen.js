@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {
   KeyboardAvoidingView,
-  ScrollView,
-  Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform
 } from 'react-native';
 import LoginTemplate from '../templates/LoginTemplate';
 import { Logo } from '../../assets/index';
@@ -15,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { SET_USER } from '../../context/actions/userActions';
 import { useNavigation } from '@react-navigation/native';
 import * as Font from 'expo-font';
+import { useLoader } from '@/context/LoaderContext';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -22,6 +22,7 @@ const LoginScreen = () => {
   const [alert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const { setLoading } = useLoader();
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -37,7 +38,19 @@ const LoginScreen = () => {
       setFontsLoaded(true);
     }
     loadFonts();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (!fontsLoaded) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const handleLogin = async () => {
     try {
