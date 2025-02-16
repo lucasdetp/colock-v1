@@ -17,7 +17,7 @@ const ProfileSave = ({ chats, isLoading, onProfilePress, auth }) => {
     <Container.BasicView>
       <Container.BasicView style={{ justifyContent: 'center', alignItems: 'center', padding: 10, flexDirection: 'row', gap: 10 }}>
         <SvgCoeurFull />
-        <Text.Base style={{ fontWeight: '500', fontSize: 22 }}>Profils enregistrés</Text.Base>
+        <Text.Base style={{ fontWeight: '400', fontSize: 22, fontFamily: "CustomFontBold" }}>Profils enregistrés</Text.Base>
       </Container.BasicView>
       {chats.sort((a, b) => b.timeStamp?.seconds - a.timeStamp?.seconds).map((profile) => (
         <MessageCardDetail

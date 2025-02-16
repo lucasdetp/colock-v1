@@ -9,7 +9,7 @@ const svgXml = `
 
 const SvgPlus= () => {
   return (
-    <SvgXml xml={svgXml} />
+    <SvgXml xml={svgXml} style={{ marginLeft: "5"}} />
   );
 };
 

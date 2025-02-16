@@ -146,12 +146,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
   label: {
     fontSize: 16,
     fontWeight: '500',
@@ -173,6 +167,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'left',
     marginLeft: 10,
+    fontFamily: "CustomFontBoldLight",
   },
   titleText: {
     fontSize: 20,

@@ -58,7 +58,7 @@ const MessageCard = ({ room, auth, onPress }) => {
         )}
       </Container.BasicView>
       <Container.BasicView style={{ flex: 1 }}>
-        <Text.Base style={{ fontWeight: 'bold', fontSize: 20 }}>{otherUserFullName}</Text.Base>
+        <Text.Base style={{ fontWeight: 'bold', fontSize: 20,  fontFamily: "FilsonProMedium", }}>{otherUserFullName}</Text.Base>
         <Text.Base style={{fontSize: 16}}>{room.lastMessage?.substring(0, 25)}{room.lastMessage?.length > 25 && '...'}</Text.Base>
       </Container.BasicView>
       <Text.Base style={{ marginLeft: 10 }}>{room.timeStamp ? calculateElapsedTime(room.timeStamp) : ''}</Text.Base>

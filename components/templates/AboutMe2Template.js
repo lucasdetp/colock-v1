@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'left',
     marginLeft: 10,
+    fontFamily: "CustomFontBoldLight",
   },
   percentageCircle: {
     width: 60,

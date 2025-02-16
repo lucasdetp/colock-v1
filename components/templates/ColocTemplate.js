@@ -337,6 +337,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     flex: 1,
+    fontFamily: "CustomFontBoldLight",
     textAlign: 'left',
     marginLeft: 10,
   },

@@ -21,8 +21,7 @@ const LargeBox = ({ imageSource, text, style }) => {
 const styles = StyleSheet.create({
   container: {
     width: '95%',
-    height: 200,
-    padding: 10,
+    height: 130,
     backgroundColor: '#fff',
     borderRadius: 15,
     shadowColor: '#000',
@@ -37,13 +36,17 @@ const styles = StyleSheet.create({
   image: {
     width: 100,  
     height: 100, 
-    marginBottom: 20,
-    bottom: 20,
+    marginBottom: 10,
+    bottom: 10,
   },
   text: {
+    width: '90%',
+    paddingLeft: 10,
+    paddingRight: 10,
     fontSize: 16,
     textAlign: 'left',
     color: '#6D6D6D',
+    fontFamily: 'CustomFontRegular',
   },
 });
 

@@ -4,6 +4,7 @@ import TextPlaceholder from '../atoms/Text/Base';
 import { AccountPictureName, ThreeSmallBoxes } from '../organims';
 import LargeBox from '../atoms/Container/LargeBox';
 import InfoBox from '../atoms/Container/InfoBox';
+import { Container, Text } from '../atoms';
 
 const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxImages, largeBoxData, infoBoxData, }) => {
   return (
@@ -33,7 +34,9 @@ const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxIma
             style={styles.boxStyle}
           />
         )}
-
+        <Container.BasicView style={styles.boxdesc}>
+          <Text.Base style={styles.desc}>Complète ton profil :</Text.Base>
+        </Container.BasicView>
         {infoBoxData.map((item, index) => (
           <InfoBox 
             key={index}
@@ -56,6 +59,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  desc: {
+   fontWeight: 'bold',
+   fontSize: 20,
+   fontFamily: "FilsonProMedium"
   },
   boxStyle: {
     marginTop: 15,
@@ -92,10 +100,9 @@ const styles = StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
   },
-  boxContainer: {
+  boxdesc: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
     width: '95%',
     alignSelf: 'center',
   },

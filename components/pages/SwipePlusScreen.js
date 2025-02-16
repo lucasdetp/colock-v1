@@ -31,6 +31,7 @@ const SwipePlusScreen = ({ route }) => {
               fontSize: 24,
               fontWeight: "bold",
               textTransform: "uppercase",
+              fontFamily: "CustomFontBold",
             }}
           >
             {name}

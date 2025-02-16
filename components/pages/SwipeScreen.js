@@ -296,8 +296,8 @@ const SwipeScreen = () => {
                 justifyContent: "center",
               }}
             >
+              <Text.Base style={{ fontFamily: "CustomFontBold" }} >Voir plus</Text.Base>
               <SvgPlus />
-              <Text.Base >Voir plus</Text.Base>
             </View>
           </TouchableOpacity>
 

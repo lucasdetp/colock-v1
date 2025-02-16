@@ -146,7 +146,7 @@ const AccountScreen = () => {
       </defs>
       </svg>
     `,
-    text: "Trouver votre colocataire plus rapidement avec notre formule platinium !",
+    text: "Accélère ta recherche de colocataire avec nos formules !",
   };
   
 

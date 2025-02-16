@@ -17,10 +17,11 @@ const AccountPictureName = ({ source, userName, style, textStyle, ...props }) =>
 const styles = StyleSheet.create({
     text: {
         marginTop: 10,
-        fontSize: 16,
+        fontSize: 22,
         color: 'black',
         fontWeight: 'bold',
         textAlign: 'center',
+        fontFamily: "CustomFontBold",
     },
 });
 

@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#3A3A3A',
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: 'CustomFontBold',
   },
   button: {
     width: '50%',

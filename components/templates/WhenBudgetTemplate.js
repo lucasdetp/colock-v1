@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     marginLeft: 10,
+    fontFamily: "CustomFontBoldLight",
   },
   goBack: {
     marginRight: 10,

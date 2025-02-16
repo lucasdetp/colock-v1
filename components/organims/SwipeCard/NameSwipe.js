@@ -10,6 +10,7 @@ const NameSwipe = ({ name }) => {
                 fontSize: 24, 
                 fontWeight: "bold", 
                 textTransform: "uppercase", 
+                fontFamily: "CustomFontBold",
             }}
             >
             {name}

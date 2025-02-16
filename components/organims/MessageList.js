@@ -18,7 +18,7 @@ const MessageList = ({ chats, isLoading, onPressMessage, auth, room }) => {
     <Container.BasicView>
       <Container.BasicView style={{ justifyContent: 'center', alignItems: 'center', padding: 10, flexDirection: 'row', gap: 10 }}>
         <SvgMessageFull />
-        <Text.Base style={{ fontWeight: '500', fontSize: 22 }}>Messages</Text.Base>
+        <Text.Base style={{ fontWeight: '500', fontSize: 22, fontFamily: "CustomFontBold", }}>Messages</Text.Base>
       </Container.BasicView>
       {chats.sort((a, b) => b.timeStamp.seconds - a.timeStamp.seconds).map(room => (
         <MessageCard 

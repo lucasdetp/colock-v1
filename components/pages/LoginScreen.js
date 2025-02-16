@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -14,15 +14,30 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { SET_USER } from '../../context/actions/userActions';
 import { useNavigation } from '@react-navigation/native';
+import * as Font from 'expo-font';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'CustomFont': require('../../assets/fonts/FilsonProRegular.otf'),
+        'CustomFontBold': require('../../assets/fonts/FilsonProBold.otf'),
+        'CustomFontBoldLight': require('../../assets/fonts/FilsonProLight.otf'),
+        'FilsonProMedium': require('../../assets/fonts/FilsonProMedium.otf'),
+      });
+      setFontsLoaded(true);
+    }
+    loadFonts();
+  }, [])
 
   const handleLogin = async () => {
     try {

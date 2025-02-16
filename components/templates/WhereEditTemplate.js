@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     flex: 1,
     textAlign: 'left',
+    fontFamily: "CustomFontBoldLight",
     marginLeft: 10,
   },
   goBack: {

@@ -56,11 +56,9 @@ const styles = StyleSheet.create({
   buttonTextForget: {
     color: '#3A3A3A',
     fontSize: 16,
-    fontWeight: '400',
   },
   name: {
     fontSize: 20,
-    fontWeight: '600',
     color: 'black',
     alignSelf: 'flex-start',
     marginVertical: 8,
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#3A3A3A',
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: 'CustomFontBold',
   },
 });
 
