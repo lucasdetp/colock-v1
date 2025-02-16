@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontWeight: 'bold',
   },
   percentageArrowContainer: {
     flexDirection: 'row',

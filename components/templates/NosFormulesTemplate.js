@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   infoBox: {
-    width: '80%', // Assure une largeur uniforme
+    width: '90%', // Assure une largeur uniforme
     padding: 20,
     borderRadius: 20,
     backgroundColor: '#fff',
