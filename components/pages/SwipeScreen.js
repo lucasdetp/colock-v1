@@ -1,6 +1,6 @@
 // components/SwipeScreen.js
 import React, { useState, useEffect, useRef } from "react";
-import { View, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, SafeAreaView, TouchableOpacity, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DeckSwiper from "react-native-deck-swiper";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, onSnapshot } from "firebase/firestore";
@@ -10,6 +10,7 @@ import SvgPlus from "../../assets/svg/plus";
 import { Container, Text} from '../atoms';
 import { SwipeCard } from "../organims";
 import { useLoader } from "@/context/LoaderContext";
+
 
 const SwipeScreen = () => {
   const [cards, setCards] = useState([]);
@@ -273,8 +274,8 @@ const SwipeScreen = () => {
             })}
             style={{ 
               position: "absolute", 
-              bottom: 250, 
-              left: "50%", 
+              bottom: Platform.OS === "ios" ? 250 : 180,
+              left: "53%", 
               transform: [{ translateX: -100 }], 
               width: 200, 
               alignItems: "center",
@@ -296,7 +297,7 @@ const SwipeScreen = () => {
               }}
             >
               <SvgPlus />
-              <Text.Base style={{ marginLeft: 5 }}>Voir plus</Text.Base>
+              <Text.Base >Voir plus</Text.Base>
             </View>
           </TouchableOpacity>
 

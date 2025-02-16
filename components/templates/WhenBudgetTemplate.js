@@ -80,8 +80,8 @@ const WhenBudgetTemplate = ({ svgSource, title }) => {
       <Container.BasicView style={styles.headerContainer}>
         <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
           <SvgFlecheRetour />
+          <SvgXml xml={svgSource} style={styles.image} />
         </TouchableOpacity>
-        <SvgXml xml={svgSource} style={styles.image} />
         <Text.Base style={styles.title}>{title}</Text.Base>
       </Container.BasicView>
 
@@ -180,11 +180,11 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 15,
     backgroundColor: '#fff',
-    elevation: 3,
   },
   image: {
     width: 60,
     height: 60,
+    marginLeft: 10,
   },
   title: {
     fontSize: 22,
@@ -194,6 +194,8 @@ const styles = StyleSheet.create({
   },
   goBack: {
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   saveButton: {
     backgroundColor: '#6A7CFF',

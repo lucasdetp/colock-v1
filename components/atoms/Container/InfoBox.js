@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 6,
-    // Elevation for Android
     elevation: 5,
   },
   image: {

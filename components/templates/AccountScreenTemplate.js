@@ -51,13 +51,11 @@ const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxIma
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
   },
   boxStyle: {
     marginTop: 15,

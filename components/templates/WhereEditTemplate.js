@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Container, Text, TextInput } from '../atoms';
@@ -29,13 +29,14 @@ const WhereEditTemplate = ({ headerData }) => {
         }
       }
     };
-    
+
     fetchUserCity();
 
     // Récupérer la localisation actuelle
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
+        alert('Permission de localisation refusée');
         return;
       }
 
@@ -86,8 +87,8 @@ const WhereEditTemplate = ({ headerData }) => {
       <View style={styles.headerContainer}>
         <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
           <SvgFlecheRetour />
+          {headerData.svgSource && <SvgXml xml={headerData.svgSource} style={styles.image}/>}
         </TouchableOpacity>
-        {headerData.svgSource && <SvgXml xml={headerData.svgSource} />}
         <Text.Base style={styles.title}>{headerData.title}</Text.Base>
       </View>
 
@@ -101,7 +102,8 @@ const WhereEditTemplate = ({ headerData }) => {
         onChangeText={handleCityChange} // Met à jour `selectedCity` et `city`
       />
 
-      {location && (
+      {/* Vérification si la localisation est disponible */}
+      {location ? (
         <MapView
           style={styles.map}
           initialRegion={{
@@ -111,6 +113,7 @@ const WhereEditTemplate = ({ headerData }) => {
             longitudeDelta: 0.05,
           }}
           onPress={handleMapPress}
+          liteMode={Platform.OS === "android"}
         >
           <Marker
             coordinate={{
@@ -120,6 +123,8 @@ const WhereEditTemplate = ({ headerData }) => {
             title="Votre position"
           />
         </MapView>
+      ) : (
+        <Text.Base>Chargement de la carte...</Text.Base>
       )}
 
       {/* Bouton pour sauvegarder la ville */}
@@ -153,6 +158,13 @@ const styles = StyleSheet.create({
   },
   goBack: {
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  image: {
+    width: 60,
+    height: 60,
+    marginLeft: 10,
   },
   map: {
     width: '100%',

@@ -85,8 +85,8 @@ const GoodOrNotTemplate = ({ svgSource, title }) => {
         <Container.BasicView style={styles.headerContainer}>
           <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
             <SvgFlecheRetour />
+            <SvgXml xml={svgSource} style={styles.image} />
           </TouchableOpacity>
-          <SvgXml xml={svgSource} style={styles.image} />
           <Text.Base style={styles.title}>{title}</Text.Base>
         </Container.BasicView>
 
@@ -155,15 +155,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '100%',
     padding: 15,
-    backgroundColor: '#fff',
-    elevation: 3,
   },
   goBack: {
-    padding: 10,
+    marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   image: {
     width: 60,
     height: 60,
+    marginLeft: 10,
   },
   title: {
     fontSize: 22,

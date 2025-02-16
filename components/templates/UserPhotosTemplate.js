@@ -144,8 +144,8 @@ const UserPhotosTemplate = () => {
         <Container.BasicView key={index} style={styles.headerContainer}>
           <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
             <SvgFlecheRetour />
+            <SvgXml xml={item.svgSource} style={styles.image} />
           </TouchableOpacity>
-          <SvgXml xml={item.svgSource} style={styles.image} />
           <Text.Base style={styles.title}>{item.title}</Text.Base>
         </Container.BasicView>
       ))}
@@ -193,11 +193,14 @@ const styles = StyleSheet.create({
   },
   goBack: {
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   image: {
     width: 40,
     height: 52,
     marginRight: 10,
+    marginLeft: 10,
   },
   title: {
     fontSize: 22,
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
   },
   photoContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     width: '100%',
     paddingHorizontal: 20,
   },
@@ -244,7 +247,6 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 5,
     borderRadius: 20,
-    elevation: 3,
   },
   editIconSvg: {
     width: 20,

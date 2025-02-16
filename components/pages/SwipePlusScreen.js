@@ -37,7 +37,7 @@ const SwipePlusScreen = ({ route }) => {
           </Text.Base>
         </Container.BasicView>
         <Container.BasicScrollView>
-            <TouchableOpacity style={{ flex: 1, backgroundColor: "white", paddingBottom: 20, borderRadius: 15, overflow: "hidden" }}>
+            <Container.BasicView style={{ flex: 1, backgroundColor: "white", paddingBottom: 20, borderRadius: 15, overflow: "hidden" }}>
                 <SwipeCard.ImageSwipe profilePic={profilePic} />
 
                 <Container.BasicView style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: 10, marginBottom: 20 }}>
@@ -52,7 +52,7 @@ const SwipePlusScreen = ({ route }) => {
                 <SwipeCard.DescriptionSwipe bio={bio} />
                 {profilePic3 && <SwipeCard.ImageSwipe profilePic={profilePic3} />}
                 
-            </TouchableOpacity>
+            </Container.BasicView>
         </Container.BasicScrollView>
     </Container.BasicView>
   );

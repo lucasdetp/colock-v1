@@ -85,8 +85,8 @@ const UserInfoTemplate = () => {
           <Container.BasicView key={index} style={styles.headerContainer}>
             <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
               <SvgFlecheRetour />
+              <SvgXml xml={item.svgSource} style={styles.image} />
             </TouchableOpacity>
-            <SvgXml xml={item.svgSource} style={styles.image} />
             <Text.Base style={styles.title}>{item.title}</Text.Base>
             </Container.BasicView>
           
@@ -145,7 +145,6 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 20,
     borderRadius: 10,
-    elevation: 3,
   },
   title: {
     fontSize: 22,
@@ -160,6 +159,13 @@ const styles = StyleSheet.create({
   },
   goBack: {
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  image: {
+    width: 60,
+    height: 60,
+    marginLeft: 10,
   },
   title: {
     fontSize: 22,

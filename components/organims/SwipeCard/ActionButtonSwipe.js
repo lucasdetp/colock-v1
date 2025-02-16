@@ -5,6 +5,7 @@ import SvgYes from "../../../assets/svg/yes";
 import SvgSave from "../../../assets/svg/save";
 import SvgSaveFull from "../../../assets/svg/saveFull";
 import SvgEclair from "../../../assets/svg/eclair";
+import { Platform } from "react-native";
 
 const ActionButtonSwipe = ({ simulateSwipeLeft, simulateSwipeRight, simulateSaveSwipe, swipedUserId }) => {
     const [isSaved, setIsSaved] = useState(false);
@@ -27,12 +28,12 @@ const ActionButtonSwipe = ({ simulateSwipeLeft, simulateSwipeRight, simulateSave
         <Container.BasicView
             style={{
                 position: "absolute",
-                bottom: 80,
+                bottom: Platform.OS === "ios" ? 80 : 40,
                 left: 0,
                 right: 0,
                 flexDirection: "row",
                 justifyContent: "space-around",
-                paddingBottom: 80,
+                paddingBottom: Platform.OS === "ios" ? 80 : 40,
             }}
         >
             <Button.SecondSwipe onPress={handleSaveSwipe}>

@@ -257,7 +257,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 15,
     backgroundColor: '#fff',
-    elevation: 3,
   },
   image: {
     width: 60,

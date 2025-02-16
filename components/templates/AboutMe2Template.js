@@ -16,8 +16,8 @@ const AboutMe2Template = ({ svgSource, title, percentage, infoBoxData }) => {
       <Container.BasicView style={styles.headerContainer}>
         <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
           <SvgFlecheRetour />
+          <SvgXml xml={svgSource} style={styles.image} />
         </TouchableOpacity>
-        <SvgXml xml={svgSource} style={styles.image} />
         <Text.Base style={styles.title}>{title}</Text.Base>
         <Container.BasicView style={styles.percentageCircle}>
           <Text.Base style={styles.percentage}>{percentage}%</Text.Base>
@@ -25,16 +25,17 @@ const AboutMe2Template = ({ svgSource, title, percentage, infoBoxData }) => {
       </Container.BasicView>
 
       {/* Container pour les boutons et les formulaires */}
-      {infoBoxData.map((item, index) => (
-          <InfoBox 
-            key={index}
-            svgSource={item.svgSource}
-            text={item.text}
-            percentage={item.percentage}
-            onPress={item.onPress}
-          />
-        ))}
-    </Container.BasicView>
+        {infoBoxData.map((item, index) => (
+          <Container.BasicView key={index} style={styles.infoBoxContainer}>
+            <InfoBox 
+              key={index}
+              svgSource={item.svgSource}
+              text={item.text}
+              onPress={item.onPress}
+            />
+          </Container.BasicView>
+          ))}
+      </Container.BasicView>
   );
 };
 
@@ -46,6 +47,10 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 20,
   },
+  infoBoxContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -53,15 +58,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,  
     width: '100%', 
     padding: 15,
-    backgroundColor: '#fff',
-    elevation: 3,
   },
   image: {
     width: 60,
     height: 60,
+    marginLeft: 10,
   },
   goBack: {
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     fontSize: 22,

@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 15.0.10",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "f80a317ab6d141ec8f8a4f41dc95d9f4"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "f80a317ab6d141ec8f8a4f41dc95d9f4"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "f80a317ab6d141ec8f8a4f41dc95d9f4"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
