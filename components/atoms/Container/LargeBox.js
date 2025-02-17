@@ -1,20 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import { Container, Text } from '../../atoms';
 
 const LargeBox = ({ imageSource, text, style }) => {
   return (
-    <View style={[styles.container, style]}>
+    <Container.BasicView style={[styles.container, style]}>
       {imageSource ? (
-        // Si l'image source est un SVG XML, utilisez SvgXml
         <SvgXml xml={imageSource} style={styles.image} />
       ) : (
-        // Si vous n'avez pas de SVG, vous pouvez afficher du texte ou une autre image
-        <Text style={styles.text}>{text}</Text>
+        <Text.Base style={styles.text}>{text}</Text.Base>
       )}
-      {/* Texte sous l'image */}
-      <Text style={styles.text}>{text}</Text>
-    </View>
+      <Text.Base style={styles.text}>{text}</Text.Base>
+    </Container.BasicView>
   );
 };
 
@@ -40,9 +38,8 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   text: {
-    width: '90%',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     fontSize: 16,
     textAlign: 'left',
     color: '#6D6D6D',

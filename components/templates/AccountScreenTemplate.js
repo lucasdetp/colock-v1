@@ -1,15 +1,45 @@
-import React from 'react';
-import { View, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import TextPlaceholder from '../atoms/Text/Base';
 import { AccountPictureName, ThreeSmallBoxes } from '../organims';
 import LargeBox from '../atoms/Container/LargeBox';
 import InfoBox from '../atoms/Container/InfoBox';
 import { Container, Text } from '../atoms';
+import SvgReglage from '../../assets/svg/reglage';
+import { firebaseAuth } from '../../config/firebase.config';
+import { useNavigation } from '@react-navigation/native';
 
 const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxImages, largeBoxData, infoBoxData, }) => {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const navigation = useNavigation();
+
+  const handleLogout = async () => {
+    try {
+      await firebaseAuth.signOut();
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion :', error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+        
+        <Container.BasicView style={styles.svgContainer}>
+          <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
+            <SvgReglage width={30} height={30} />
+          </TouchableOpacity>
+
+          {menuVisible && (
+            <TouchableOpacity onPress={handleLogout}>
+              <Container.BasicView style={styles.menu}>
+                <Text.Base style={styles.menuText}>Déconnexion</Text.Base>
+              </Container.BasicView>
+            </TouchableOpacity>
+          )}
+        </Container.BasicView>
+
         <AccountPictureName
           source={{ uri: profilePic }}
           userName={userName}
@@ -19,11 +49,11 @@ const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxIma
 
         {/* Informations Supplémentaires */}
         {additionalDetails && (
-          <View style={styles.detailsBox}>
+          <Container.BasicView style={styles.detailsBox}>
             <TextPlaceholder style={styles.additionalDetails}>
               {additionalDetails}
             </TextPlaceholder>
-          </View>
+          </Container.BasicView>
         )}
 
         <ThreeSmallBoxes boxImages={boxImages} />
@@ -52,8 +82,33 @@ const AccountScreenTemplate = ({ userName, profilePic, additionalDetails, boxIma
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  svgContainer: {
+    position: 'absolute',
+    top: 10,  
+    right: 10, 
+    zIndex: 100,
+  },
+  menu: {
+    position: 'absolute',
+    top: 5, 
+    right: 0,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+    zIndex: 200,
+  },
+  menuText: {
+    fontSize: 16,
+    color: 'black',
+    fontWeight: 'bold',
+    fontFamily: 'FilsonProMedium',
+    zIndex: 200,
+    width: "150",
   },
   container: {
     flex: 1,

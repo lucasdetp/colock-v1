@@ -71,6 +71,7 @@ const AppNavigator = ({ isRegistered }) => {
           <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
           <Stack.Screen name="PaymentInfoScreen" component={PaymentInfoScreen} />
           <Stack.Screen name="UserPhotosScreen" component={UserPhotosScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
         </>
       ) : (
         <>
