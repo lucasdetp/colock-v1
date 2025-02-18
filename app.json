@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "colock-v1",
+    "name": "Colock",
     "slug": "colock-v1",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.spamdetp.colockv1",
+      "bundleIdentifier": "com.spamdetp.colock",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -29,7 +29,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.spamdetp.colockv1"
+      "package": "com.spamdetp.colock"
     },
     "web": {
       "bundler": "metro",
@@ -53,6 +53,7 @@
       "eas": {
         "projectId": "1525bebb-46ee-44f0-a52c-d5bd5c9e4c5d"
       }
-    }
+    },
+    "owner": "spamdetp"
   }
 }

@@ -7,7 +7,7 @@ const LoadScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Container.BasicView style={styles.centeredContainer}>
-        <Text.Base style={styles.title}>Bienvenue sur</Text.Base>
+        {/* <Text.Base style={styles.title}>Bienvenue sur</Text.Base> */}
         <SvgLogoWhite />
       </Container.BasicView>
     </SafeAreaView>

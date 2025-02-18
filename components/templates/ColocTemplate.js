@@ -250,7 +250,7 @@ const ColocTemplate = ({ svgSource, title }) => {
             ))}
           </Container.BasicView>
 
-          
+
           <Text.Base style={styles.title}>Régime alimentaire</Text.Base>
           <Text.Base style={styles.titleh2}>Clique sur les régimes alimentaires que tu recherches :</Text.Base>
 
@@ -318,19 +318,22 @@ const ColocTemplate = ({ svgSource, title }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#6A7CFF',
+    backgroundColor: '#F8F9FA',
+    borderWidth: 1,
+    borderColor: '#C9DDFC',
     paddingVertical: 15,
     paddingHorizontal: 40,
     marginTop: 20,
-    borderRadius: 10,
-    width: '50%',
+    borderRadius: 20,
+    width: '55%',
     alignSelf: 'center',
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
+    color: 'black',
+    fontSize: 17,
     fontWeight: 'bold',
     justifyContent: 'center',
+    fontFamily: "CustomFontBold",
     textAlign: 'center',
   },
   title: {
