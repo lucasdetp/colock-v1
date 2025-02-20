@@ -68,7 +68,7 @@ const NosFormulesTemplate = () => {
         </View>
 
         <Text.Base style={styles.infoText}>
-          Offre annuelle, fonctionnalités supplémentaires :
+          Offre mensuelle, fonctionnalités supplémentaires :
         </Text.Base>
 
         {/* Liste des fonctionnalités avec bullet points */}
@@ -82,7 +82,7 @@ const NosFormulesTemplate = () => {
         </View>
 
         <Text.Base style={styles.infoText}>
-          {"\n"}Le tout pour 9,90€ seulement !
+          {"\n"}Le tout pour 24,90€ seulement !
         </Text.Base>
         
         <TouchableOpacity style={styles.button}>

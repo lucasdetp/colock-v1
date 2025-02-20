@@ -79,7 +79,7 @@ const ChatTemplate = ({
       >
         <ScrollView 
           ref={scrollViewRef} 
-          style={{ flex: 1 }} 
+          style={{ flex: 1, backgroundColor: '#F8F9FA', }} 
           contentContainerStyle={{ paddingBottom: 16 }} 
           keyboardShouldPersistTaps="handled"
         >
@@ -97,19 +97,20 @@ const ChatTemplate = ({
                     alignItems: 'flex-end',
                     marginVertical: 3,
                     paddingHorizontal: 15,
+                    backgroundColor: '#F8F9FA'
                   }}
                 >
                   {/* Bulle de message */}
-                  <View style={{ maxWidth: '75%', position: 'relative' }}>
+                  <View style={{ maxWidth: '75%', position: 'relative', backgroundColor: '#F8F9FA' }}>
                     <View 
                       style={{
                         padding: 10,
-                        backgroundColor: isSentByCurrentUser ? '#6d24a5' : '#e5e5e5',
+                        backgroundColor: isSentByCurrentUser ? '#e5e5e5' : '#E1EEFE',
                         borderRadius: 15,
                         position: 'relative',
                       }}
                     >
-                      <Text.Base style={{ color: isSentByCurrentUser ? '#fff' : '#000' }}>
+                      <Text.Base style={{ color: '#000' }}>
                         {msg.message}
                       </Text.Base>
                     </View>

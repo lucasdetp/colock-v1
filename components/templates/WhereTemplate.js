@@ -4,9 +4,6 @@ import { TouchableOpacity, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Container, Text, TextInput } from '../atoms';
-import { PROVIDER_GOOGLE } from 'react-native-maps';
-import Svg from 'react-native-svg';
-import SvgFlecheBleu from '@/assets/svg/flecheBleu';
 
 const WhereTemplate = ({ navigateToNextStep, saveCityData }) => {
   const [location, setLocation] = useState(null);
@@ -58,8 +55,6 @@ const WhereTemplate = ({ navigateToNextStep, saveCityData }) => {
       />
       {location && (
         <MapView
-          provider={PROVIDER_GOOGLE}
-          apiKey={process.env.GOOGLE_MAPS_API_KEY}
           style={styles.map}
           initialRegion={{
             latitude: location.latitude,
@@ -80,7 +75,6 @@ const WhereTemplate = ({ navigateToNextStep, saveCityData }) => {
       )}
       <TouchableOpacity onPress={navigateToNextStep} style={styles.button}>
         <Text.Base style={styles.buttonText}>Valider 3/5</Text.Base>
-        <SvgFlecheBleu />
       </TouchableOpacity>
     </Container.BasicView>
   );
@@ -127,24 +121,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    width: '50%',
-    paddingVertical: 12,
-    borderRadius: 20,
-    backgroundColor: '#F8F9FA',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 12,
-    alignSelf: 'center',
-    borderWidth: 1,
-    borderColor: '#C9DDFC',
-    flexDirection: 'row',
-    gap: 10,
-    alignContent: 'center',
+    backgroundColor: '#6A7CFF',
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    marginTop: 20,
+    borderRadius: 10,
   },
   buttonText: {
-    color: '#3A3A3A',
-    fontSize: 20,
-    fontFamily: 'CustomFontBold',
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

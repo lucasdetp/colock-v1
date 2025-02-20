@@ -50,8 +50,9 @@ const SwipePlusScreen = ({ route }) => {
 
                   {dateDispo && <SwipeCard.DateSwipe date={dateDispo} />}
                   {profilePic2 && <SwipeCard.ImageSwipe profilePic={profilePic2} />}
-
-                  <SwipeCard.DescriptionSwipe bio={bio} />
+                  <Container.BasicView style={{ marginBottom: 20 }}>
+                    <SwipeCard.DescriptionSwipe bio={bio} />
+                  </Container.BasicView>
                   {profilePic3 && <SwipeCard.ImageSwipe profilePic={profilePic3} />}
                   
               </Container.BasicView>

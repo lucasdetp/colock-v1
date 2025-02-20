@@ -148,13 +148,13 @@ const SwipeScreen = () => {
                 if (distance > 100) continue; 
     
                 if (lookingFor === "Peu importe" || user.gender === lookingFor) {
-                    if (commonLoisirs >= 3) {
-                        perfectMatch.push(user);
-                    } else if (commonLoisirs === 2) {
-                        mediumMatch.push(user);
-                    } else if (commonLoisirs === 1) {
+                    // if (commonLoisirs >= 3) {
+                    //     perfectMatch.push(user);
+                    // } else if (commonLoisirs === 2) {
+                    //     mediumMatch.push(user);
+                    // } else if (commonLoisirs === 1) {
                         lightMatch.push(user);
-                    }
+                    // }
                 }
             }
     

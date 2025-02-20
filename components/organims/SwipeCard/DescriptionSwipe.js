@@ -19,7 +19,7 @@ const DescriptionSwipe = ({ bio }) => {
             marginHorizontal: 10,
             marginTop: 20,
         }}>
-        <Text.Base style={{ fontSize: 12, color: "black" }}>{bio}</Text.Base>
+        <Text.Base style={{ fontSize: 14, color: "black", lineHeight: 20 }}>{bio}</Text.Base>
         </Container.BasicView>
     );
 };

@@ -8,7 +8,6 @@ import { useNavigation } from 'expo-router';
 import SvgFlecheRetour from '../../assets/svg/flecheRetour';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 const WhereEditTemplate = ({ headerData }) => {
   const [location, setLocation] = useState(null);
@@ -106,8 +105,6 @@ const WhereEditTemplate = ({ headerData }) => {
       {/* Vérification si la localisation est disponible */}
       {location ? (
         <MapView
-          provider={PROVIDER_GOOGLE} // Ajout de Google Maps
-          apiKey={process.env.GOOGLE_MAPS_API_KEY}
           style={styles.map}
           initialRegion={{
             latitude: location.latitude,
@@ -116,6 +113,7 @@ const WhereEditTemplate = ({ headerData }) => {
             longitudeDelta: 0.05,
           }}
           onPress={handleMapPress}
+          liteMode={Platform.OS === "android"}
         >
           <Marker
             coordinate={{
