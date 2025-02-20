@@ -1,18 +1,33 @@
 // components/organisms/MessageList.js
-import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
 import { MessageCard } from '../molecules';
 import { Text, Container } from '../atoms';
 import SvgMessageFull from '../../assets/svg/messageFull';
+import { useLoader } from '@/context/LoaderContext';
 
 const MessageList = ({ chats, isLoading, onPressMessage, auth, room }) => {
-  if (isLoading) {
-    return <ActivityIndicator size="large" color="#6d24a5" />;
-  }
+  const { setLoading } = useLoader();
+    useEffect(() => {
+      if (isLoading) {
+        setLoading(true);
+      } else {
+        setLoading(false);
+      }
+    }, [isLoading, setLoading]);
 
   if (!chats || chats.length === 0) {
-    return <Text.Base style={{ textAlign: 'center' }}>Pas encore d'amis</Text.Base>;
-  }
+    return (
+      <Container.BasicView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Container.BasicView style={{ justifyContent: 'center', alignItems: 'center', padding: 10, flexDirection: 'row', gap: 10 }}>
+          <SvgMessageFull />
+          <Text.Base style={{ fontWeight: '500', fontSize: 22, fontFamily: "CustomFontBold", }}>Messages</Text.Base>
+        </Container.BasicView>
+        <Text.Base style={{ textAlign: 'center', fontFamily: "CustomFont", fontSize: 18 }}>
+          Pas encore d'amis
+        </Text.Base>
+      </Container.BasicView>
+    );
+  }     
 
   return (
     <Container.BasicView>

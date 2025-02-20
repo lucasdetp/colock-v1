@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Container, Text } from '../atoms';
 import SvgCroix from '../../assets/svg/croix';
+import SvgFlecheBleu from '@/assets/svg/flecheBleu';
 
 
 const LikesTemplate = ({ navigateToNextStep, saveLoisirsData }) => {
@@ -109,6 +110,7 @@ const LikesTemplate = ({ navigateToNextStep, saveLoisirsData }) => {
       </Container.BasicView>
         <TouchableOpacity onPress={handleValidation} style={styles.button}>
             <Text.Base style={styles.buttonText}>Valider 4/5</Text.Base>
+          <SvgFlecheBleu />
         </TouchableOpacity>
     </Container.BasicView>
   );
@@ -122,16 +124,24 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   button: {
-    backgroundColor: '#6A7CFF',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginTop: 20,
-    borderRadius: 10,
-  }, 
+    width: '50%',
+    paddingVertical: 12,
+    borderRadius: 20,
+    backgroundColor: '#F8F9FA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 12,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#C9DDFC',
+    flexDirection: 'row',
+    gap: 10,
+    alignContent: 'center',
+  },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: '#3A3A3A',
+    fontSize: 20,
+    fontFamily: 'CustomFontBold',
   },
   title: {
     fontSize: 24,

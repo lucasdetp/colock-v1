@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInput, KeyboardAvoidingView, Image, Platform, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { TextInput, KeyboardAvoidingView, ScrollView, Image, Platform, View } from 'react-native';
 import { Text, Container, Button } from '../atoms';
 import { FontAwesome, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
@@ -14,6 +14,15 @@ const ChatTemplate = ({
   otherUserName, 
   onBackPress 
 }) => {
+
+  const scrollViewRef = useRef(null); // Référence à la ScrollView
+
+  useEffect(() => {
+    // Fait défiler automatiquement vers le bas lorsque messages change
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
+  }, [messages]);
 
   const formatTime = (timestamp) => {
     if (!timestamp?.seconds) return '';
@@ -47,7 +56,7 @@ const ChatTemplate = ({
         }}>
           {otherUserName}
         </Text.Base>
-        {/* Photo de profil */}
+
         {otherUserProfilePic !== 'N/A' ? (
           <Image
             source={{ uri: otherUserProfilePic }}
@@ -63,11 +72,17 @@ const ChatTemplate = ({
         )}
       </Container.BasicView>
 
+      {/* Zone des messages */}
       <KeyboardAvoidingView 
         style={{ flex: 1 }} 
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <Container.BasicScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 16 }}>
+        <ScrollView 
+          ref={scrollViewRef} 
+          style={{ flex: 1 }} 
+          contentContainerStyle={{ paddingBottom: 16 }} 
+          keyboardShouldPersistTaps="handled"
+        >
           {isLoading ? (
             <Text.Base>Loading messages...</Text.Base>
           ) : (
@@ -80,16 +95,12 @@ const ChatTemplate = ({
                   style={{ 
                     flexDirection: isSentByCurrentUser ? 'row-reverse' : 'row', 
                     alignItems: 'flex-end',
-                    marginVertical: 15,
+                    marginVertical: 3,
                     paddingHorizontal: 15,
                   }}
                 >
-
-                  {/* Bulle de message avec pic */}
-                  <View style={{ 
-                    maxWidth: '75%', 
-                    position: 'relative',
-                  }}>
+                  {/* Bulle de message */}
+                  <View style={{ maxWidth: '75%', position: 'relative' }}>
                     <View 
                       style={{
                         padding: 10,
@@ -101,25 +112,6 @@ const ChatTemplate = ({
                       <Text.Base style={{ color: isSentByCurrentUser ? '#fff' : '#000' }}>
                         {msg.message}
                       </Text.Base>
-
-                      {/* Pic de la bulle */}
-                      <View
-                        style={{
-                          position: 'absolute',
-                          bottom: 8,
-                          [isSentByCurrentUser ? 'right' : 'left']: -8,
-                          width: 0,
-                          height: 0,
-                          borderTopWidth: 10,
-                          borderTopColor: 'transparent',
-                          borderBottomWidth: 10,
-                          borderBottomColor: 'transparent',
-                          borderLeftWidth: isSentByCurrentUser ? 10 : 0,
-                          borderLeftColor: isSentByCurrentUser ? '#6d24a5' : 'transparent',
-                          borderRightWidth: isSentByCurrentUser ? 0 : 10,
-                          borderRightColor: isSentByCurrentUser ? 'transparent' : '#e5e5e5',
-                        }}
-                      />
                     </View>
 
                     {/* Heure du message */}
@@ -140,10 +132,17 @@ const ChatTemplate = ({
               );
             })
           )}
-        </Container.BasicScrollView>
+        </ScrollView>
 
-        {/* Input pour taper le message */}
-        <Container.BasicView style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingBottom: Platform.OS === 'ios' ? 30 : 10 }}>
+        {/* Barre d'entrée du message */}
+        <Container.BasicView 
+          style={{ 
+            flexDirection: 'row', 
+            alignItems: 'center', 
+            paddingHorizontal: 10, 
+            paddingBottom: Platform.OS === 'ios' ? 30 : 10 
+          }}
+        >
           <TextInput
             style={{
               flex: 1,
@@ -159,7 +158,17 @@ const ChatTemplate = ({
             multiline={true}
             onChangeText={setMessage}
           />
-          <Button.BasicButton onPress={sendMessage} style={{ marginLeft: 10 }}>
+          <Button.BasicButton 
+            onPress={() => {
+              sendMessage();
+              setTimeout(() => {
+                if (scrollViewRef.current) {
+                  scrollViewRef.current.scrollToEnd({ animated: true });
+                }
+              }, 100);
+            }} 
+            style={{ marginLeft: 10 }}
+          >
             <FontAwesome name="send" size={24} color="#6d24a5" />
           </Button.BasicButton>
         </Container.BasicView>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
 import { Container, Text } from '../atoms';
+import SvgFlecheBleu from '@/assets/svg/flecheBleu';
 
 const WhoTemplate = ({ navigateToNextStep, saveUserData }) => {
   const [gender, setGender] = useState(null);
@@ -100,18 +101,6 @@ const WhoTemplate = ({ navigateToNextStep, saveUserData }) => {
           <Container.BasicView style={styles.checkItem}>
             <Container.BasicView style={styles.checkBorder}>
               <Checkbox
-                status={lookingFor === 'Queer' ? 'checked' : 'unchecked'}
-                onPress={() => setLookingFor('Queer')}
-                color="blue"
-                uncheckedColor="black"
-              />
-            </Container.BasicView>
-            <Text.Base style={styles.checkboxText}>Queer</Text.Base>
-          </Container.BasicView>
-
-          <Container.BasicView style={styles.checkItem}>
-            <Container.BasicView style={styles.checkBorder}>
-              <Checkbox
                 status={lookingFor === 'Peu importe' ? 'checked' : 'unchecked'}
                 onPress={() => setLookingFor('Peu importe')}
                 color="blue"
@@ -124,6 +113,7 @@ const WhoTemplate = ({ navigateToNextStep, saveUserData }) => {
 
         <TouchableOpacity onPress={handleNextStep} style={styles.button}>
           <Text.Base style={styles.buttonText}>Valider 2/5</Text.Base>
+          <SvgFlecheBleu />
         </TouchableOpacity>
       </Container.BasicView>
     </PaperProvider>
@@ -172,16 +162,24 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   button: {
-    backgroundColor: '#6A7CFF',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginTop: 20,
-    borderRadius: 10,
+    width: '50%',
+    paddingVertical: 12,
+    borderRadius: 20,
+    backgroundColor: '#F8F9FA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 12,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#C9DDFC',
+    flexDirection: 'row',
+    gap: 10,
+    alignContent: 'center',
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: '#3A3A3A',
+    fontSize: 20,
+    fontFamily: 'CustomFontBold',
   },
 });
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container, Text } from '../atoms';
 import { Picker } from '@react-native-picker/picker';
+import SvgFlecheBleu from '../../assets/svg/flecheBleu';
 
 const WelcomeTemplate = ({ navigateToNextStep, saveBirthdate }) => {
   const [day, setDay] = useState('01');
@@ -97,6 +98,7 @@ const WelcomeTemplate = ({ navigateToNextStep, saveBirthdate }) => {
       {/* Bouton pour passer à la prochaine étape */}
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text.Base style={styles.buttonText}>Valider 1/5</Text.Base>
+        <SvgFlecheBleu />
       </TouchableOpacity>
     </Container.BasicView>
   );
@@ -143,16 +145,24 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   button: {
-    backgroundColor: '#6A7CFF',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginTop: 20,
-    borderRadius: 10,
+    width: '50%',
+    paddingVertical: 12,
+    borderRadius: 20,
+    backgroundColor: '#F8F9FA',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 12,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#C9DDFC',
+    flexDirection: 'row',
+    gap: 10,
+    alignContent: 'center',
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: '#3A3A3A',
+    fontSize: 20,
+    fontFamily: 'CustomFontBold',
   },
 });
 

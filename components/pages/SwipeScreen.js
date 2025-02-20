@@ -274,7 +274,7 @@ const SwipeScreen = () => {
             })}
             style={{ 
               position: "absolute", 
-              bottom: Platform.OS === "ios" ? 250 : 180,
+              bottom: Platform.OS === "ios" ? 250 : 200,
               left: "53%", 
               transform: [{ translateX: -100 }], 
               width: 200, 
@@ -396,7 +396,7 @@ const SwipeScreen = () => {
   
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ flex: 1 }}>
         {!swipedAll && cards.length > 0 && (
           <DeckSwiper

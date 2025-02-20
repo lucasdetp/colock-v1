@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
-import { Container, Text } from '../atoms';
+import { Container, Image, Text } from '../atoms';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { SvgXml } from 'react-native-svg';
@@ -73,6 +73,11 @@ const RythmePreferenceTemplate = ({ svgSource, title }) => {
           <Text.Base style={styles.title}>{title}</Text.Base>
         </Container.BasicView>
 
+        <Container.BasicView style={styles.mainContainer}> 
+            <Image.Local source={require('../../assets/images/rythme.jpg')} />
+            <Text.Base style={styles.desc}>Clique sur le tags qui correspond au moment où tu est le plus active ou actif de la journée.</Text.Base>
+        </Container.BasicView>
+
         <Container.BasicView style={styles.buttonsContainer}>
           {['Matin', 'Aprèm', 'Soirée', 'Nuit'].map((option) => (
             <TouchableOpacity
@@ -120,13 +125,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
     width: '100%',
-    padding: 15,
     backgroundColor: '#fff',
   },
   goBack: {
     marginRight: 10,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
+  },
+  desc: {
+    fontSize: 15,
+    color: '#6D6D6D',
+    textAlign: 'left',
+    marginBottom: 20,
   },
   image: {
     width: 60,
@@ -163,7 +179,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#FFFFFF',
-    padding: 10,
+    padding: 5,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -177,7 +193,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#6D6D6D',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   saveButton: {

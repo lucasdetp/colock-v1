@@ -8,7 +8,7 @@ const MessageCardDetail = ({ room, city, auth, onPressProfile, onPressMessage })
     return (
       <TouchableOpacity 
         onPress={onPressProfile}
-        style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderWidth: 1, borderColor: '#ddd', borderRadius: 13 }}
+        style={{ flexDirection: 'row', padding: 10, marginBottom: 10, alignItems: 'center', borderWidth: 1, borderColor: '#ddd', borderRadius: 13 }}
       >
         <Container.BasicView style={{ marginRight: 10 }}>
           {room.profilePic !== "N/A" ? (

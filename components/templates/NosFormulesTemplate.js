@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    fontFamily: 'CustomFontBold',
   },
   infoBox: {
     width: '90%', // Assure une largeur uniforme

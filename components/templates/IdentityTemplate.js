@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
-import { Container, Text } from '../atoms';
+import { Container, Image, Text } from '../atoms';
 import { firebaseAuth, firestoreDB } from '../../config/firebase.config';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { SvgXml } from 'react-native-svg';
@@ -65,7 +65,6 @@ const IdentityTemplate = ({ svgSource, title }) => {
     }
     setSaving(false);
   };
-
   return (
     <PaperProvider>
       <Container.BasicView style={styles.mainContainer}>
@@ -77,6 +76,10 @@ const IdentityTemplate = ({ svgSource, title }) => {
           <Text.Base style={styles.title}>{title}</Text.Base>
         </Container.BasicView>
 
+        <Container.BasicView>
+          <Image.Local source={require('../../assets/images/identity.jpeg')} />
+          <Text.Base style={styles.desc}>Clique sur le tags qui te définit le mieux.</Text.Base>
+        </Container.BasicView>
         <Container.BasicView style={styles.buttonsContainer}>
           {['Homme', 'Femme', 'Autre'].map((option) => (
             <TouchableOpacity
@@ -148,6 +151,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 50,
+  },
+  desc: {
+    fontSize: 15,
+    color: '#6D6D6D',
+    textAlign: 'left',
+    marginBottom: 20,
   },
   title: {
     fontSize: 22,

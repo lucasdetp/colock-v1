@@ -28,12 +28,12 @@ const ActionButtonSwipe = ({ simulateSwipeLeft, simulateSwipeRight, simulateSave
         <Container.BasicView
             style={{
                 position: "absolute",
-                bottom: Platform.OS === "ios" ? 80 : 40,
+                bottom: Platform.OS === "ios" ? 80 : 50,
                 left: 0,
                 right: 0,
                 flexDirection: "row",
                 justifyContent: "space-around",
-                paddingBottom: Platform.OS === "ios" ? 80 : 40,
+                paddingBottom: Platform.OS === "ios" ? 80 : 50,
             }}
         >
             <Button.SecondSwipe onPress={handleSaveSwipe}>

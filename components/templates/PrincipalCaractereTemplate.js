@@ -84,13 +84,13 @@ const PrincipalCaractereTemplate = ({ svgSource, title }) => {
   return (
     <Container.BasicView style={styles.mainContainer}>
       <Container.BasicScrollView>
-      <Container.BasicView style={styles.headerContainer}>
-        <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
-          <SvgFlecheRetour />
-          <SvgXml xml={svgSource} style={styles.image} />
-        </TouchableOpacity>
-        <Text.Base style={styles.title}>{title}</Text.Base>
-      </Container.BasicView>
+        <Container.BasicView style={styles.headerContainer}>
+          <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+            <SvgFlecheRetour />
+            <SvgXml xml={svgSource} style={styles.image} />
+          </TouchableOpacity>
+          <Text.Base style={styles.title}>{title}</Text.Base>
+        </Container.BasicView>
 
       <Container.BasicView style={styles.podiumContainer}>
         <Container.BasicView style={styles.podiumRow}>
@@ -230,7 +230,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginBottom: 10,
     width: '100%',
-    padding: 15,
   },
   image: {
     width: 60,

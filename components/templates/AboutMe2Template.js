@@ -19,9 +19,6 @@ const AboutMe2Template = ({ svgSource, title, percentage, infoBoxData }) => {
           <SvgXml xml={svgSource} style={styles.image} />
         </TouchableOpacity>
         <Text.Base style={styles.title}>{title}</Text.Base>
-        <Container.BasicView style={styles.percentageCircle}>
-          <Text.Base style={styles.percentage}>{percentage}%</Text.Base>
-        </Container.BasicView>
       </Container.BasicView>
 
       {/* Container pour les boutons et les formulaires */}
